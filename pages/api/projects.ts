@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Categories } from '@contexts/CategoryContext';
 import { NextApiRequest, NextApiResponse } from 'next';
 

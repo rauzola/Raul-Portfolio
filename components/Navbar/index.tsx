@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import Button from '@components/Button';
 import NavItem from '@components/NavItem';
 import ThemeToggle from '@components/ThemeToggle';

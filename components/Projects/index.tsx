@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Project } from '@api/projects';
 import CategoryToggle from '@components/CategoryToggle';
 import ProjectItem from '@components/ProjectItem';

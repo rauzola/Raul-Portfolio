@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import Button from '@components/Button';
 import { useTheme } from '@contexts/ThemeContext';
 import darkModeStyle from '@styles/components/Hero/dark.module.scss';

@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import '@styles/globals.scss';
 
 import { CategoryProvider } from '@contexts/CategoryContext';

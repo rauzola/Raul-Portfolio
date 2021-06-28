@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { useTheme } from '@contexts/ThemeContext';
 import darkModeStyle from '@styles/components/NavItem/dark.module.scss';
 import defaultStyle from '@styles/components/NavItem/default.module.scss';

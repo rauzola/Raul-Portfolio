@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Metadata } from '@api/metadatas';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 

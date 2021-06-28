@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import Button from '@components/Button';
 import ThemeToggle from '@components/ThemeToggle';
 import { useTheme } from '@contexts/ThemeContext';

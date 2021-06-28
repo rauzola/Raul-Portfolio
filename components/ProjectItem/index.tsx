@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Project } from '@api/projects';
 import { useTheme } from '@contexts/ThemeContext';
 import darkModeStyle from '@styles/components/ProjectItem/dark.module.scss';

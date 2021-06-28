@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import styles from '@styles/components/Button/default.module.scss';
 import { FC } from 'react';
 

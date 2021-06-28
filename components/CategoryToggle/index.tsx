@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Categories, useCategory } from '@contexts/CategoryContext';
 import { useTheme } from '@contexts/ThemeContext';
 import darkModeStyle from '@styles/components/CategoryToggle/dark.module.scss';

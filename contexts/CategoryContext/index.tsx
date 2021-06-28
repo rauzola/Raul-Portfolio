@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { createContext, FC, useContext, useMemo, useState } from 'react';
 
 export enum Categories {

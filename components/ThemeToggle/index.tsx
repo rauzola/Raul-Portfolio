@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Theme, useTheme } from '@contexts/ThemeContext';
 import darkModeStyle from '@styles/components/ThemeToggle/dark.module.scss';
 import defaultStyle from '@styles/components/ThemeToggle/default.module.scss';

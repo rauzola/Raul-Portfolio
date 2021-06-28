@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import SectionTitle from '@components/SectionTitle';
 import { useTheme } from '@contexts/ThemeContext';
 import darkModeStyle from '@styles/components/About/dark.module.scss';

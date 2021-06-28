@@ -1,16 +1,6 @@
 {
-  "trailingComma": "all",
-  "useTabs": false,
-  "printWidth": 80,
-  "singleQuote": true,
-  "jsxSingleQuote": true,
-  "tabWidth": 2,
-  "semi": true,
-  "arrowParens": "avoid",
-  "prettier/prettier": ["error", {}, {
-    "fileInfoOptions": {
-      "withNodeModules": true
-    }
-  }]
-  
+  "trailingComma": "es5",
+  "tabWidth": 4,
+  "semi": false,
+  "singleQuote": true
 }
