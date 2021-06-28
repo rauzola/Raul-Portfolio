@@ -63,11 +63,9 @@ const Navbar = (): JSX.Element => {
             render={
               <Button
                 className={styles.buttonCTA}
-                onClick={() => console.warn('Falta handle do orçamento navbar')}
-              >
-                <a href="http://WA.me/5544991658351" target='_blank' >
+                onClick={() => window.location.href = 'http://WA.me/5544991658351' }
+                >
                   Orçamento
-                </a>
               </Button>
             }
           />

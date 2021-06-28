@@ -34,11 +34,11 @@ const Footer: FC = (): JSX.Element => {
         <div className={styles.buttonContainer}>
           <Button
             className={styles.button}
-            onClick={() => console.warn('footer button without handler')}
+            
+            onClick={() => window.location.href = 'http://WA.me/5544991658351' }
           >
-            <a href="http://WA.me/5544991658351" target='_blank' >
               Fazer um orçamento
-            </a>
+            
           </Button>
         </div>
       </div>
