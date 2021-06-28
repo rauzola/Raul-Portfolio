@@ -1,0 +1,187 @@
+@import '../../variables';
+@import '../../keyframes';
+
+.container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: Poppins, sans-serif;
+  font-size: 2rem;
+  padding: 0.5rem;
+  gap: 1rem;
+
+  @media screen and (max-width: $breakpoint-small-mobile) {
+    font-size: 1.3rem;
+  }
+
+  @media screen and (min-width: $breakpoint-mobile) {
+    &::before {
+      content: url('/abstracts/cross.svg');
+      top: 1rem;
+      right: 1.5rem;
+      position: absolute;
+      width: 2rem;
+      opacity: 0;
+      animation: slideTopWithOpacityCross 700ms forwards;
+      animation-delay: 300ms;
+    }
+  }
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    margin: auto;
+    max-width: $breakpoint-desktop;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, auto);
+    max-height: 20rem;
+    grid-template-areas:
+      'title draw'
+      'subtitle draw'
+      'button draw';
+    gap: 0;
+    &::before {
+      margin-top: 0;
+      left: unset;
+      bottom: unset;
+      top: 2rem;
+      width: 3vw;
+    }
+  }
+  @media screen and (min-width: $breakpoint-laptop) {
+    grid-template-columns: 1.5fr 1fr;
+  }
+  @media screen and (min-width: $breakpoint-desktop) {
+    &::before {
+      width: 2vw;
+    }
+  }
+}
+
+.title {
+  display: grid;
+  column-gap: 8px;
+  grid-template-columns: 1fr 2fr;
+  margin: 0;
+  width: 100%;
+  &::before {
+    content: url('/abstracts/wave-line.svg');
+    position: absolute;
+    margin-top: 16px;
+    left: 0;
+    top: 0;
+    width: 80%;
+    opacity: 0;
+    animation: fadeIn 300ms forwards;
+    animation-delay: 1500ms;
+  }
+  @media screen and (min-width: $breakpoint-small-mobile) {
+    grid-template-columns: 1.3fr 2fr;
+    width: 100%;
+  }
+  @media screen and (min-width: $breakpoint-tablet) {
+    grid-area: title;
+    justify-self: center;
+    align-self: flex-end;
+    &::before {
+      width: 40vw;
+    }
+  }
+  @media screen and (min-width: $breakpoint-desktop) {
+    grid-template-columns: 1.1fr 2fr;
+    width: 80%;
+    &::before {
+      width: 25vw;
+    }
+  }
+}
+
+.subtitle {
+  text-align: center;
+  width: 100%;
+  color: $gray-2;
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 1rem;
+  @media screen and (min-width: $breakpoint-small-mobile) {
+    width: 80%;
+  }
+  @media screen and (min-width: $breakpoint-tablet) {
+    grid-area: subtitle;
+    justify-self: center;
+    align-self: center;
+    text-align: justify;
+  }
+  @media screen and (min-width: $breakpoint-laptop) {
+    width: 55%;
+  }
+}
+
+.fixed {
+  justify-self: flex-end;
+}
+
+.dynamic {
+  height: 100%;
+  flex: 1;
+  background-clip: text;
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+  animation: none;
+}
+
+.designs {
+  animation: fadeIn 500ms ease-in-out;
+  background-image: $gradient-design;
+}
+
+.designs__static {
+  background-image: $gradient-design;
+}
+
+.systems {
+  animation: fadeIn 500ms ease-in-out;
+  background-image: $gradient-system;
+}
+
+.systems__static {
+  background-image: $gradient-system;
+}
+
+.websites {
+  animation: fadeIn 500ms ease-in-out;
+  background-image: $gradient-website;
+}
+
+.websites__static {
+  background-image: $gradient-website;
+}
+
+.draw {
+  position: relative;
+  margin: 32px 0px;
+  @media screen and (min-width: $breakpoint-tablet) {
+    grid-area: draw;
+    justify-self: flex-start;
+    align-self: center;
+  }
+}
+
+.button {
+  @media screen and (min-width: $breakpoint-tablet) {
+    grid-area: button;
+    display: flex;
+    justify-self: center;
+    align-self: flex-start;
+    justify-content: flex-start;
+    align-items: center;
+    width: 80%;
+  }
+  @media screen and (min-width: $breakpoint-laptop) {
+    width: 55%;
+  }
+}
