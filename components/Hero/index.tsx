@@ -62,7 +62,9 @@ const Hero: FC = (): JSX.Element => {
         </h1>
       </Fade>
       <p className={styles.subtitle}>
-      Raul Sigoli, Jovem Programador Web profissional, competente para criação e elaboração de projeto estético e funcional de website, com uma uma curta experiencia mais muito densa, sempre em busca de um novo desafio para estimulação de um crescimento profissional      </p>
+        Olá, meu nome é Brito sou UX/UI Designer com foco em soluções digitais
+        pensando sempre na experiência do usuário.
+      </p>
       <div className={styles.button}>
         <Button
           onClick={() =>

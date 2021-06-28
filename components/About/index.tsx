@@ -25,28 +25,45 @@ const About: FC = (): JSX.Element => {
       <SectionTitle label='Sobre mim' className={styles.title} />
       <div className={styles.description}>
         <p>
-        Moro em Maringá uma Cidade No interior do Paraná, Mais Também conhecida como a cidade dos universitário, por se uma cidade com um grande numero de estudante na área e tecnologia, sempre busco me aprimorar e me atualizar para ser e oferecer o melhor do meu lado profissional, minhas melhores especialidades são projetar Aplicativo Website e sistemas de médio e pequeno porte, com experiencias em diversos projetos, seguimentos e cliente, de pequenas startups a grandes corporações, Busco fazer meu nome nesse gigantesco mercado de Tecnologia, posso te afirmar você contratando o meu serviço terá o melhor de um profissional nessa área
+          Minha especialidade é projetar aplicativos móveis, sites e sistemas de
+          grande e pequeno porte. Tenho feito isso há bastante tempo e trabalhei
+          em todos os tipos de projetos, seguimentos e clientes, de pequenas
+          startups a grandes corporações.
         </p>
       </div>
       <div className={styles.social}>
         <a
-          href='https://instagram.com/raul_sigoli'
+          href='https://instagram.com'
           className={styles.icon}
           target='_blank'
           rel='noreferrer'
         >
           <img className={styles.instagram} alt='Instagram icon' />
         </a>
-        
         <a
-          href='https://www.linkedin.com/in/raul-sigoli-137bb4173/'
+          href='https://medium.com'
+          className={styles.icon}
+          target='_blank'
+          rel='noreferrer'
+        >
+          <img className={styles.medium} alt='Medium icon' />
+        </a>
+        <a
+          href='https://linkedin.com'
           className={styles.icon}
           target='_blank'
           rel='noreferrer'
         >
           <img className={styles.linkedin} alt='Linkedin icon' />
         </a>
-      
+        <a
+          href='https://youtube.com'
+          className={styles.icon}
+          target='_blank'
+          rel='noreferrer'
+        >
+          <img className={styles.youtube} alt='Youtube icon' />
+        </a>
       </div>
       <div className={styles.wrapper}>
         <img

@@ -6,5 +6,11 @@
   "jsxSingleQuote": true,
   "tabWidth": 2,
   "semi": true,
-  "arrowParens": "avoid"
+  "arrowParens": "avoid",
+  "prettier/prettier": ["error", {}, {
+    "fileInfoOptions": {
+      "withNodeModules": true
+    }
+  }]
+  
 }
