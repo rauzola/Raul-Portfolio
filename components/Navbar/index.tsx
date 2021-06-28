@@ -1,3 +1,6 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable react/jsx-no-target-blank */
+/* eslint-disable prettier/prettier */
 import Button from '@components/Button';
 import NavItem from '@components/NavItem';
 import ThemeToggle from '@components/ThemeToggle';
@@ -62,7 +65,9 @@ const Navbar = (): JSX.Element => {
                 className={styles.buttonCTA}
                 onClick={() => console.warn('Falta handle do orçamento navbar')}
               >
-                Orçamento
+                <a href="http://WA.me/5544991658351" target='_blank' >
+                  Orçamento
+                </a>
               </Button>
             }
           />

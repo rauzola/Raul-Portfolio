@@ -1,3 +1,6 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable react/jsx-no-target-blank */
+/* eslint-disable prettier/prettier */
 import Button from '@components/Button';
 import ThemeToggle from '@components/ThemeToggle';
 import { useTheme } from '@contexts/ThemeContext';
@@ -33,7 +36,9 @@ const Footer: FC = (): JSX.Element => {
             className={styles.button}
             onClick={() => console.warn('footer button without handler')}
           >
-            Fazer um orçamento
+            <a href="http://WA.me/5544991658351" target='_blank' >
+              Fazer um orçamento
+            </a>
           </Button>
         </div>
       </div>
@@ -58,39 +63,25 @@ const Footer: FC = (): JSX.Element => {
           <ThemeToggle />
         </div>
         <div className={styles.social}>
-          <a
-            href='https://instagram.com'
-            className={styles.icon}
-            target='_blank'
-            rel='noreferrer'
-          >
-            <img className={styles.instagram} alt='Instagram icon' />
-          </a>
-          <a
-            href='https://medium.com'
-            className={styles.icon}
-            target='_blank'
-            rel='noreferrer'
-          >
-            <img className={styles.medium} alt='Medium icon' />
-          </a>
-          <a
-            href='https://linkedin.com'
-            className={styles.icon}
-            target='_blank'
-            rel='noreferrer'
-          >
-            <img className={styles.linkedin} alt='Linkedin icon' />
-          </a>
-          <a
-            href='https://youtube.com'
-            className={styles.icon}
-            target='_blank'
-            rel='noreferrer'
-          >
-            <img className={styles.youtube} alt='Youtube icon' />
-          </a>
-        </div>
+        <a
+          href='https://instagram.com/raul_sigoli'
+          className={styles.icon}
+          target='_blank'
+          rel='noreferrer'
+        >
+          <img className={styles.instagram} alt='Instagram icon' />
+        </a>
+        
+        <a
+          href='https://www.linkedin.com/in/raul-sigoli-137bb4173/'
+          className={styles.icon}
+          target='_blank'
+          rel='noreferrer'
+        >
+          <img className={styles.linkedin} alt='Linkedin icon' />
+        </a>
+        
+      </div>
       </div>
     </div>
   );

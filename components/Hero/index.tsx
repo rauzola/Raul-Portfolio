@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import Button from '@components/Button';
 import { useTheme } from '@contexts/ThemeContext';
 import darkModeStyle from '@styles/components/Hero/dark.module.scss';
@@ -61,8 +62,11 @@ const Hero: FC = (): JSX.Element => {
         </h1>
       </Fade>
       <p className={styles.subtitle}>
-        Olá, meu nome é Brito sou UX/UI Designer com foco em soluções digitais
-        pensando sempre na experiência do usuário.
+        Raul Sigoli, Jovem Programador Web profissional, 
+        competente para criação e elaboração de projeto estético e 
+        funcional de website, com uma uma curta experiencia mais muito densa, 
+        sempre em busca de um novo desafio para estimulação de um 
+        crescimento profissional
       </p>
       <div className={styles.button}>
         <Button
