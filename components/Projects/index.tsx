@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Project } from '@api/projects';
+import Button from '@components/Button';
 import CategoryToggle from '@components/CategoryToggle';
 import ProjectItem from '@components/ProjectItem';
 import SectionTitle from '@components/SectionTitle';
@@ -37,15 +38,22 @@ const Projects: FC = (): JSX.Element => {
   }, [theme]);
 
   return (
-    <div id='projects' className={styles.container}>
-      <SectionTitle label='Projetos' />
-      <CategoryToggle />
-      <div className={styles.projects}>
-        {projects?.map((project, index) => (
-          <ProjectItem key={project.id} project={project} index={index} />
-        ))}
+    <>
+      <div id='projects' className={styles.container}>
+        <SectionTitle label='Projetos' />
+        <CategoryToggle />
+        <div className={styles.projects}>
+          {projects?.map((project, index) => (
+            <ProjectItem key={project.id} project={project} index={index} />
+          ))}
+        </div> 
+        <Button
+          onClick={() => window.location.href = 'http://WA.me/5544991658351'}
+        >
+          Site com os projetos
+        </Button>
       </div>
-    </div>
+    </>
   );
 };
 export default Projects;
