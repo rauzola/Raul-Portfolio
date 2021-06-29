@@ -1,10 +1,11 @@
+/* eslint-disable prettier/prettier */
 import { Metadata } from '@api/metadatas';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 
 export default class MyDocument extends Document<{ metadatas: Metadata[] }> {
   render(): JSX.Element {
     return (
-      <Html lang='en'>
+      <Html lang='pt'>
         <Head>
           <link rel='preconnect' href='https://fonts.gstatic.com' />
           <link
