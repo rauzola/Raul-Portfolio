@@ -26,12 +26,13 @@ const Hero: FC = (): JSX.Element => {
 
   const features: Feature[] = useMemo(
     () => [
-      { value: 'designs', className: 'designs' },
-      { value: 'designs', className: 'designs__static' },
-      { value: 'sistemas', className: 'systems' },
-      { value: 'sistemas', className: 'systems__static' },
       { value: 'websites', className: 'websites' },
       { value: 'websites', className: 'websites__static' },
+      { value: 'sistemas', className: 'systems' },
+      { value: 'sistemas', className: 'systems__static' },
+      { value: 'designs', className: 'designs' },
+      { value: 'designs', className: 'designs__static' },
+
     ],
     [],
   );
@@ -62,10 +63,10 @@ const Hero: FC = (): JSX.Element => {
         </h1>
       </Fade>
       <p className={styles.subtitle}>
-        Raul Sigoli, Jovem Programador Web profissional, 
-        competente para criação e elaboração de projeto estético e 
-        funcional de website, com uma uma curta experiencia mais muito densa, 
-        sempre em busca de um novo desafio para estimulação de um 
+        Raul Sigoli, Jovem Programador Web profissional,
+        competente para criação e elaboração de projeto estético e
+        funcional de website, com uma uma curta experiencia mais muito densa,
+        sempre em busca de um novo desafio para estimulação de um
         crescimento profissional
       </p>
       <div className={styles.button}>

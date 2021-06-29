@@ -48,7 +48,7 @@ const Projects: FC = (): JSX.Element => {
           ))}
         </div> 
         <Button
-          onClick={() => window.location.href = 'http://WA.me/5544991658351'}
+          onClick={() => window.location.href = 'https://raulsigoli.rastremar.com.br/sites/'}
         >
           Site com os projetos
         </Button>
