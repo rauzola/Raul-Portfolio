@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Project } from '@api/projects';
 import { useTheme } from '@contexts/ThemeContext';
 import darkModeStyle from '@styles/components/ProjectItem/dark.module.scss';
@@ -50,11 +51,14 @@ const ProjectItem: FC<ProjectItemProps> = ({ project, index }): JSX.Element => {
       right={index % 2 !== 0 && widthMatches}
     >
       <div className={styles.container}>
-        <img
-          className={styles.image}
-          src={project.imageUrl}
-          alt={`${project.title} project print`}
-        />
+        <a className={styles.link1} href={project.link}>
+          <img
+            className={styles.image}
+            src={project.imageUrl}
+            alt={`${project.title} project print`}
+          />
+        </a>
+
         <div className={styles.content}>
           <span className={styles.chip}>{project.category}</span>
           <p className={styles.title}>{project.title}</p>

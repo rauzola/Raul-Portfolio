@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Categories } from '@contexts/CategoryContext';
 import { NextApiRequest, NextApiResponse } from 'next';
 
@@ -75,63 +76,73 @@ export default (req: NextApiRequest, res: NextApiResponse<Project[]>): void => {
     },
     {
       id: 7,
-      imageUrl: `/projects/project-7.jpg`,
-      title: 'Titulo do projeto',
+      imageUrl: `/projects/site/appy.png`,
+      title: 'appy',
       description:
-        'dasdasd',
+      'Projetos feito pro min Raul, ponto para modificações e sue uso para seu negocio.',
       category: Categories.UI,
-      link: 'https://link-to.project',
-      behanceLink: 'https://link-to.behance',
+      link: 'http://raulsigoli.rastremar.com.br/sites/appy/',
+      behanceLink: 'http://raulsigoli.rastremar.com.br/sites/appy/',
     },
     {
       id: 8,
-      imageUrl: `/projects/project-8.jpg`,
-      title: 'Titulo do projeto',
+      imageUrl: `/projects/site/Doob.png`,
+      title: 'Doob',
       description:
-        'dasdasd',
+      'Projetos feito pro min Raul, ponto para modificações e sue uso para seu negocio.',
       category: Categories.UI,
-      link: 'https://link-to.project',
-      behanceLink: 'https://link-to.behance',
+      link: 'http://raulsigoli.rastremar.com.br/sites/Doob/',
+      behanceLink: 'http://raulsigoli.rastremar.com.br/sites/Doob/',
     },
     {
       id: 9,
-      imageUrl: `/projects/project-9.jpg`,
-      title: 'Titulo do projeto',
+      imageUrl: `/projects/site/flexbox.png`,
+      title: 'flexbox-template',
       description:
-        'dasdasd',
+      'Projetos feito pro min Raul, ponto para modificações e sue uso para seu negocio.',
       category: Categories.UI,
-      link: 'https://link-to.project',
-      behanceLink: 'https://link-to.behance',
+      link: 'http://raulsigoli.rastremar.com.br/sites/flexbox-template/',
+      behanceLink: 'http://raulsigoli.rastremar.com.br/sites/flexbox-template/',
     },
     {
       id: 10,
-      imageUrl: `/projects/project-10.jpg`,
-      title: 'Titulo do projeto',
+      imageUrl: `/projects/site/gonex.png`,
+      title: 'gonex',
       description:
-        'dasdasd',
+      'Projetos feito pro min Raul, ponto para modificações e sue uso para seu negocio.',
       category: Categories.UI,
-      link: 'https://link-to.project',
-      behanceLink: 'https://link-to.behance',
+      link: 'http://raulsigoli.rastremar.com.br/sites/gonex/',
+      behanceLink: 'http://raulsigoli.rastremar.com.br/sites/gonex/',
     },
     {
       id: 11,
-      imageUrl: `/projects/project-11.jpg`,
-      title: 'Titulo do projeto',
+      imageUrl: `/projects/site/Luxestate.png`,
+      title: 'Luxestate',
       description:
-        'dasdasd',
+      'Projetos feito pro min Raul, ponto para modificações e sue uso para seu negocio.',
       category: Categories.UI,
-      link: 'https://link-to.project',
-      behanceLink: 'https://link-to.behance',
+      link: 'http://raulsigoli.rastremar.com.br/sites/Luxestate/',
+      behanceLink: 'http://raulsigoli.rastremar.com.br/sites/Luxestate/',
     },
     {
       id: 12,
-      imageUrl: `/projects/project-12.jpg`,
-      title: 'Titulo do projeto',
+      imageUrl: `/projects/site/molly.png`,
+      title: 'molly',
       description:
-        'dasdasd',
+      'Projetos feito pro min Raul, ponto para modificações e sue uso para seu negocio.',
       category: Categories.UI,
-      link: 'https://link-to.project',
-      behanceLink: 'https://link-to.behance',
+      link: 'http://raulsigoli.rastremar.com.br/sites/molly/',
+      behanceLink: 'http://raulsigoli.rastremar.com.br/sites/molly/',
+    },
+    {
+      id: 12,
+      imageUrl: `/projects/site/paradigm.png`,
+      title: 'paradigm-shift',
+      description:
+        'Projetos feito pro min Raul, ponto para modificações e sue uso para seu negocio.',
+      category: Categories.UI,
+      link: 'http://raulsigoli.rastremar.com.br/sites/paradigm-shift/',
+      behanceLink: 'http://raulsigoli.rastremar.com.br/sites/paradigm-shift/',
     },
   ];
   res
