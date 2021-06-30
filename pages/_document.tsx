@@ -20,6 +20,21 @@ export default class MyDocument extends Document<{ metadatas: Metadata[] }> {
               content={metadata.content}
             />
           ))}
+          <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-NQQNQFTGQP"
+        />
+
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-NQQNQFTGQP', { page_path: window.location.pathname });
+            `,
+          }}
+        />
         </Head>
         <body>
           <Main />

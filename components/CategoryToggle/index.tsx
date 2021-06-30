@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Categories, useCategory } from '@contexts/CategoryContext';
 import { useTheme } from '@contexts/ThemeContext';
 import darkModeStyle from '@styles/components/CategoryToggle/dark.module.scss';
@@ -32,13 +33,13 @@ const CategoryToggle: FC = (): JSX.Element => {
         <p>Web design</p>
       </button>
       <button
-        onClick={() => setCategory(Categories.UI)}
+        onClick={() => setCategory(Categories.SI)}
         className={`${styles.icon} ${
-          category === Categories.UI ? styles.active : ''
+          category === Categories.SI ? styles.active : ''
         }`}
       >
         <img className={styles.ui} alt='UI design icon' />
-        <p>UX/UI design</p>
+        <p>Sistemas</p>
       </button>
     </div>
   );
