@@ -5,7 +5,7 @@ import Document, { Head, Html, Main, NextScript } from 'next/document';
 export default class MyDocument extends Document<{ metadatas: Metadata[] }> {
   render(): JSX.Element {
     return (
-      <Html lang='pt'>
+      <Html lang='pt-BR'>
         <Head>
           <link rel='preconnect' href='https://fonts.gstatic.com' />
           <link
