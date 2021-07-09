@@ -22,7 +22,7 @@ export default class MyDocument extends Document<{ metadatas: Metadata[] }> {
           ))}
           <script
           async
-          src="https://www.googletagmanager.com/gtag/js?id=G-NQQNQFTGQP"
+          src="https://www.googletagmanager.com/gtag/js?id=UA-201823243-1"
         />
 
         <script
@@ -31,7 +31,7 @@ export default class MyDocument extends Document<{ metadatas: Metadata[] }> {
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-NQQNQFTGQP', { page_path: window.location.pathname });
+              gtag('config', 'UA-201823243-1', { page_path: window.location.pathname });
             `,
           }}
         />
