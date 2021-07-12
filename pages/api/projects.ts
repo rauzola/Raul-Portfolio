@@ -146,7 +146,7 @@ export default (req: NextApiRequest, res: NextApiResponse<Project[]>): void => {
     },
     {
       id: 13,
-      imageUrl: `/projects/site/site-pessoal.png`,
+      imageUrl: `/projects/site/site-pessoal.jpg`,
       title: 'site-pessoal',
       description:
         'Modelo HTML5 profissional. Responsivo, totalmente personalizável com fácil editor de Nicepage Arrastar e Soltar. Ajuste cores, fontes, cabeçalho e rodapé, layout e outros elementos de design, bem como conteúdo e imagens.',
