@@ -135,7 +135,7 @@ export default (req: NextApiRequest, res: NextApiResponse<Project[]>): void => {
       behanceLink: 'http://raulsigoli.rastremar.com.br/sites/molly/',
     },
     {
-      id: 13,
+      id: 0,
       imageUrl: `/projects/site/paradigm.png`,
       title: 'paradigm-shift',
       description:
@@ -143,6 +143,16 @@ export default (req: NextApiRequest, res: NextApiResponse<Project[]>): void => {
       category: Categories.WEB,
       link: 'http://raulsigoli.rastremar.com.br/sites/paradigm-shift/',
       behanceLink: 'http://raulsigoli.rastremar.com.br/sites/paradigm-shift/',
+    },
+    {
+      id: 13,
+      imageUrl: `/projects/site/site-pessoal.png`,
+      title: 'site-pessoal',
+      description:
+        'Modelo HTML5 profissional. Responsivo, totalmente personalizável com fácil editor de Nicepage Arrastar e Soltar. Ajuste cores, fontes, cabeçalho e rodapé, layout e outros elementos de design, bem como conteúdo e imagens.',
+      category: Categories.WEB,
+      link: 'https://raulsigoli.rastremar.com.br/sites/site-pessoal/',
+      behanceLink: 'https://raulsigoli.rastremar.com.br/sites/site-pessoal/',
     },
   ];
   res

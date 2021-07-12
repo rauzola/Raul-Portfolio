@@ -7,7 +7,6 @@
     "build": "next build",
     "start": "next start"
   },
-  
   "lint-staged": {
     "./**/*.{ts,tsx}": [
       "eslint --ext .js,.jsx,.ts,.tsx ./"
