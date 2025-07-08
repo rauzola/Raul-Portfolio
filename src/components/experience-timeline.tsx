@@ -15,11 +15,15 @@ interface Props {
 }
 
 export const ExperienceTimeline = ({ experiences }: Props) => {
+  const VerticalTimelineWrapper = VerticalTimeline as unknown as React.FC<any>;
+  const VerticalTimelineElementWrapper =
+    VerticalTimelineElement as unknown as React.FC<any>;
+
   return (
     <div className="mt-10 md:mt-20 flex flex-col">
-      <VerticalTimeline>
+      <VerticalTimelineWrapper>
         {experiences.map((experience, index) => (
-          <VerticalTimelineElement
+          <VerticalTimelineElementWrapper
             key={`experience-${index}`}
             contentStyle={{
               background: "#1d1836",
@@ -49,23 +53,21 @@ export const ExperienceTimeline = ({ experiences }: Props) => {
             <h4 className="text-xs md:text-sm vertical-timeline-element-subtitle text-light-blue">
               {experience.companyName}
             </h4>
-            {/* <p>{experience.description}</p> */}
             <div className="flex flex-wrap gap-2">
               {experience.tags.map((tag) => (
                 <span
                   key={tag.name}
-                  style={{
-                    color: tag.color,
-                  }}
-                  className={`text-sm md:text-base`}
+                  style={{ color: tag.color }}
+                  className="text-sm md:text-base"
                 >
                   #{tag.name}
                 </span>
               ))}
             </div>
-          </VerticalTimelineElement>
+          </VerticalTimelineElementWrapper>
         ))}
-      </VerticalTimeline>
+      </VerticalTimelineWrapper>
     </div>
   );
 };
+
