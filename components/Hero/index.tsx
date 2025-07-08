@@ -6,7 +6,7 @@ import defaultStyle from '@styles/components/Hero/default.module.scss';
 import lightModeStyle from '@styles/components/Hero/light.module.scss';
 import { mergeStyles } from 'merge-style-modules';
 import { FC, useEffect, useMemo, useState } from 'react';
-import Fade from 'react-reveal/Fade';
+
 
 const themes = {
   DARK: darkModeStyle,
@@ -54,14 +54,14 @@ const Hero: FC = (): JSX.Element => {
 
   return (
     <div className={styles.container}>
-      <Fade left>
+      <div>
         <h1 className={styles.title}>
           <span className={styles.fixed}>Crio</span>
           <div className={`${styles.dynamic} ${styles[feature.className]}`}>
             {feature.value}
           </div>
         </h1>
-      </Fade>
+      </div>
       <p className={styles.subtitle}>
         Raul Sigoli, Jovem Programador Web profissional,
         competente para criação e elaboração de projeto estético e

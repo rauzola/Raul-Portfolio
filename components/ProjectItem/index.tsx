@@ -7,7 +7,7 @@ import lightModeStyle from '@styles/components/ProjectItem/light.module.scss';
 import { mergeStyles } from 'merge-style-modules';
 import Image from 'next/image';
 import { FC, useEffect, useMemo, useState } from 'react';
-import Fade from 'react-reveal/Fade';
+
 
 type ProjectItemProps = {
   project: Project;
@@ -46,9 +46,9 @@ const ProjectItem: FC<ProjectItemProps> = ({ project, index }): JSX.Element => {
   }, [widthMatches]);
 
   return (
-    <Fade
-      left={!widthMatches || index % 2 === 0}
-      right={index % 2 !== 0 && widthMatches}
+    <div
+      // left={!widthMatches || index % 2 === 0}
+      // right={index % 2 !== 0 && widthMatches}
     >
       <div className={styles.container}>
         <a className={styles.link1} href={project.link}>
@@ -89,7 +89,7 @@ const ProjectItem: FC<ProjectItemProps> = ({ project, index }): JSX.Element => {
           </div>
         </div>
       </div>
-    </Fade>
+    </div>
   );
 };
 
