@@ -47,8 +47,40 @@ export const tags = {
     name: "Spring",
     color: "#42B700",
   },
-  "Tensorflow": {
+  Tensorflow: {
     name: "Tensorflow",
     color: "#F78000",
-  }
+  },
+  GraphQL: {
+    name: "GraphQL",
+    color: "#e535ab",
+  },
+  HTML: {
+    name: "HTML",
+    color: "#e34c26",
+  },
+  CSS: {
+    name: "CSS",
+    color: "#264de4",
+  },
+  JavaScript: {
+    name: "JavaScript",
+    color: "#f7df1e",
+  },
+  Infraestrutura: {
+    name: "Infraestrutura",
+    color: "#6c757d",
+  },
+  Hardware: {
+    name: "Hardware",
+    color: "#d35400",
+  },
+  "Edição de Vídeo": {
+    name: "Edição de Vídeo",
+    color: "#ff6347",
+  },
+  "Adobe Premiere": {
+    name: "Adobe Premiere",
+    color: "#9999ff",
+  },
 };

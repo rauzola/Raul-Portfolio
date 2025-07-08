@@ -7,13 +7,14 @@ export const workExperience: WorkExperienceTexts = {
   title: "Experiência Profissional",
   experiences: [
     {
-      name: "Engenheiro de Software",
-      companyName: "Muralis",
+      name: "Estudante de Análise e Desenvolvimento de Sistemas (ADS)",
+      companyName: "UNICV",
       description:
-        "Na Muralis, atuei como Engenheiro de Software, utilizando Python (OpenCV, TensorFlow) para detecção de objetos, Java (Spring Boot, Spring JPA) para desenvolvimento backend e Node.js (React.js, Next.js, Tailwind) para aplicações frontend. Apliquei princípios arquiteturais como design system, arquitetura hexagonal e atomic design para garantir soluções escaláveis e de fácil manutenção. Minhas responsabilidades incluíam definir escopo de tarefas, estimar esforços e documentar conhecimento para padronização e compartilhamento. Colaborei ativamente com a equipe, incentivando discussões sobre melhorias técnicas e boas práticas. Além disso, alinhei atualizações do projeto com a liderança, identifiquei e comuniquei impedimentos e promovi feedbacks constantes para aprimoramento técnico e comportamental.",
-      from: "2024-08-12",
-      icon: "Spring",
-      tags: [tags["Spring"], tags["Next.js"], tags["Tensorflow"]],
+        "Atualmente cursando Análise e Desenvolvimento de Sistemas, aprofundando conhecimentos em desenvolvimento de software, análise de sistemas e tecnologias web, buscando sempre aplicar os aprendizados em projetos práticos.",
+      from: "2023-01",
+      to: "2025-12-01",
+      tags: [tags["Typescript"], tags["React.js"], tags["Next.js"]], // pode ajustar as tags se quiser
+      icon: "React.js",
     },
     {
       name: "Desenvolvedor Frontend",
@@ -26,14 +27,50 @@ export const workExperience: WorkExperienceTexts = {
       icon: "Next.js",
     },
     {
-      name: "Estagiário em Desenvolvimento Frontend",
-      companyName: "Mestres da Web",
+      name: "Estagiário de Programação Front-End",
+      companyName: "Datlo",
       description:
-        "Como Estagiário em Desenvolvimento Frontend na Mestres da Web, trabalhei no desenvolvimento de aplicações web utilizando React. Colaborei com a equipe para criar interfaces amigáveis e garantir a responsividade e o desempenho das aplicações. Também ganhei experiência em trabalhar com TypeScript e integrar o frontend com os serviços de backend. Durante meu estágio, aprendi as melhores práticas em desenvolvimento frontend e contribuí para os projetos da equipe.",
-      from: "2022-07-05",
-      to: "2022-12-01",
-      tags: [tags["React.js"], tags["Typescript"]],
+        "Fui responsável pelo desenvolvimento do front-end da plataforma inteligente de localização. A plataforma fornecia soluções que auxiliavam empresas a encontrar novos clientes, parceiros estratégicos, monitorar o mercado e os concorrentes, e abrir novas lojas em pontos estratégicos. Durante o projeto, utilizei ferramentas como React/Next.js, Typescript, ANT-Design, Leaflet, Styled-components e GraphQL.",
+      from: "2022-10",
+      to: "2023-07",
+      tags: [
+        tags["React.js"],
+        tags["Next.js"],
+        tags["Typescript"],
+        tags["GraphQL"],
+      ],
+      icon: "React.js",
+    },
+    {
+      name: "Estagiário de T.I",
+      companyName: "Anpad",
+      description:
+        "Atuava como Desenvolvedor Front-end, responsável pela criação de sites e desenvolvimento de rotas para eventos realizados. Possuo experiência na edição de vídeos utilizando o Adobe Premiere e habilidades de edição gráfica no Adobe Photoshop.",
+      from: "2020-08",
+      to: "2022-08",
+      tags: [tags["HTML"], tags["CSS"], tags["JavaScript"]],
+      icon: "React.js",
+    },
+    {
+      name: "Estagiário de Infraestrutura",
+      companyName: "Pressure Compressores",
+      description:
+        "Atuava na parte de Infraestrutura da fábrica, reparando e arrumando computadores, impressoras e sistemas (quando necessário).",
+      from: "2019-01",
+      to: "2019-11",
+      tags: [tags["Infraestrutura"], tags["Hardware"]],
+      icon: "React.js",
+    },
+    {
+      name: "Editor de Vídeo",
+      companyName: "Band Maringá",
+      description:
+        "Editava vídeos e matérias do Programa da Mirna Lavecc, que ia ao ar todos os sábados.",
+      from: "2017",
+      to: "2018",
+      tags: [tags["Edição de Vídeo"], tags["Adobe Premiere"]],
       icon: "React.js",
     },
   ],
 };
+
