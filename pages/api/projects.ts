@@ -74,86 +74,87 @@ export default (req: NextApiRequest, res: NextApiResponse<Project[]>): void => {
       link: 'https://github.com/rauzola/GoBarber-BootCamp-ReactJs',
       behanceLink: 'https://www.figma.com/file/BXCihtXXh9p37lGsENV614/GoBarber',
     },
-    {
-      id: 7,
-      imageUrl: `/projects/site/appy.png`,
-      title: 'appy',
-      description:
-      'Projetos feito pro min Raul, ponto para modificações e sue uso para seu negocio.',
-      category: Categories.WEB,
-      link: 'http://raulsigoli.rastremar.com.br/sites/appy/',
-      behanceLink: 'http://raulsigoli.rastremar.com.br/sites/appy/',
-    },
-    {
-      id: 8,
-      imageUrl: `/projects/site/Doob.png`,
-      title: 'Doob',
-      description:
-      'Projetos feito pro min Raul, ponto para modificações e sue uso para seu negocio.',
-      category: Categories.WEB,
-      link: 'http://raulsigoli.rastremar.com.br/sites/Doob/',
-      behanceLink: 'http://raulsigoli.rastremar.com.br/sites/Doob/',
-    },
-    {
-      id: 9,
-      imageUrl: `/projects/site/flexbox.png`,
-      title: 'flexbox-template',
-      description:
-      'Projetos feito pro min Raul, ponto para modificações e sue uso para seu negocio.',
-      category: Categories.WEB,
-      link: 'http://raulsigoli.rastremar.com.br/sites/flexbox-template/',
-      behanceLink: 'http://raulsigoli.rastremar.com.br/sites/flexbox-template/',
-    },
-    {
-      id: 10,
-      imageUrl: `/projects/site/gonex.png`,
-      title: 'gonex',
-      description:
-      'Projetos feito pro min Raul, ponto para modificações e sue uso para seu negocio.',
-      category: Categories.WEB,
-      link: 'http://raulsigoli.rastremar.com.br/sites/gonex/',
-      behanceLink: 'http://raulsigoli.rastremar.com.br/sites/gonex/',
-    },
-    {
-      id: 11,
-      imageUrl: `/projects/site/Luxestate.png`,
-      title: 'Luxestate',
-      description:
-      'Projetos feito pro min Raul, ponto para modificações e sue uso para seu negocio.',
-      category: Categories.WEB,
-      link: 'http://raulsigoli.rastremar.com.br/sites/Luxestate/',
-      behanceLink: 'http://raulsigoli.rastremar.com.br/sites/Luxestate/',
-    },
-    {
-      id: 12,
-      imageUrl: `/projects/site/molly.png`,
-      title: 'molly',
-      description:
-      'Projetos feito pro min Raul, ponto para modificações e sue uso para seu negocio.',
-      category: Categories.WEB,
-      link: 'http://raulsigoli.rastremar.com.br/sites/molly/',
-      behanceLink: 'http://raulsigoli.rastremar.com.br/sites/molly/',
-    },
-    {
-      id: 0,
-      imageUrl: `/projects/site/paradigm.png`,
-      title: 'paradigm-shift',
-      description:
-        'Projetos feito pro min Raul, ponto para modificações e sue uso para seu negocio.',
-      category: Categories.WEB,
-      link: 'http://raulsigoli.rastremar.com.br/sites/paradigm-shift/',
-      behanceLink: 'http://raulsigoli.rastremar.com.br/sites/paradigm-shift/',
-    },
-    {
-      id: 13,
-      imageUrl: `/projects/site/site-pessoal.jpg`,
-      title: 'site-pessoal',
-      description:
-        'Modelo HTML5 profissional. Responsivo, totalmente personalizável com fácil editor de Nicepage Arrastar e Soltar. Ajuste cores, fontes, cabeçalho e rodapé, layout e outros elementos de design, bem como conteúdo e imagens.',
-      category: Categories.WEB,
-      link: 'https://raulsigoli.rastremar.com.br/sites/site-pessoal/',
-      behanceLink: 'https://raulsigoli.rastremar.com.br/sites/site-pessoal/',
-    },
+   {
+  id: 7,
+  imageUrl: `/projects/site/marev.png`,
+  title: 'Marev',
+  description:
+    'Site desenvolvido por Raul Sigoli com estrutura pronta para personalizações e uso comercial.',
+  category: Categories.WEB,
+  link: 'https://www.marev.com.br/',
+  behanceLink: '#',
+},
+{
+  id: 8,
+  imageUrl: `/projects/site/projetomaisvida.png`,
+  title: 'Projeto Mais Vida',
+  description:
+    'Site criado por Raul Sigoli, com base flexível para adaptações conforme a necessidade do projeto.',
+  category: Categories.WEB,
+  link: 'https://www.projetomaisvida.com.br/',
+  behanceLink: '#',
+},
+{
+  id: 9,
+  imageUrl: `/projects/site/habilidades humanas rh.png`,
+  title: 'Habilidades Humanas RH',
+  description:
+    'Site feito por Raul Sigoli, pronto para modificações e ideal para divulgação de serviços profissionais.',
+  category: Categories.WEB,
+  link: 'https://www.habilidadeshumanasrh.com.br/',
+  behanceLink: '#',
+},
+
+    // {
+    //   id: 10,
+    //   imageUrl: `/projects/site/gonex.png`,
+    //   title: 'gonex',
+    //   description:
+    //   'Projetos feito pro min Raul, ponto para modificações e seu uso para seu negocio.',
+    //   category: Categories.WEB,
+    //   link: 'http://raulsigoli.rastremar.com.br/sites/gonex/',
+    //   behanceLink: 'http://raulsigoli.rastremar.com.br/sites/gonex/',
+    // },
+    // {
+    //   id: 11,
+    //   imageUrl: `/projects/site/Luxestate.png`,
+    //   title: 'Luxestate',
+    //   description:
+    //   'Projetos feito pro min Raul, ponto para modificações e seu uso para seu negocio.',
+    //   category: Categories.WEB,
+    //   link: 'http://raulsigoli.rastremar.com.br/sites/Luxestate/',
+    //   behanceLink: 'http://raulsigoli.rastremar.com.br/sites/Luxestate/',
+    // },
+    // {
+    //   id: 12,
+    //   imageUrl: `/projects/site/molly.png`,
+    //   title: 'molly',
+    //   description:
+    //   'Projetos feito pro min Raul, ponto para modificações e seu uso para seu negocio.',
+    //   category: Categories.WEB,
+    //   link: 'http://raulsigoli.rastremar.com.br/sites/molly/',
+    //   behanceLink: 'http://raulsigoli.rastremar.com.br/sites/molly/',
+    // },
+    // {
+    //   id: 0,
+    //   imageUrl: `/projects/site/paradigm.png`,
+    //   title: 'paradigm-shift',
+    //   description:
+    //     'Projetos feito pro min Raul, ponto para modificações e seu uso para seu negocio.',
+    //   category: Categories.WEB,
+    //   link: 'http://raulsigoli.rastremar.com.br/sites/paradigm-shift/',
+    //   behanceLink: 'http://raulsigoli.rastremar.com.br/sites/paradigm-shift/',
+    // },
+    // {
+    //   id: 13,
+    //   imageUrl: `/projects/site/site-pessoal.jpg`,
+    //   title: 'site-pessoal',
+    //   description:
+    //     'Modelo HTML5 profissional. Responsivo, totalmente personalizável com fácil editor de Nicepage Arrastar e Soltar. Ajuste cores, fontes, cabeçalho e rodapé, layout e outros elementos de design, bem como conteúdo e imagens.',
+    //   category: Categories.WEB,
+    //   link: 'https://raulsigoli.rastremar.com.br/sites/site-pessoal/',
+    //   behanceLink: 'https://raulsigoli.rastremar.com.br/sites/site-pessoal/',
+    // },
   ];
   res
     .status(200)
