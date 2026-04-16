@@ -1,13 +1,12 @@
 import { MainPage } from "@/components/main-page";
 import { texts } from "@/config/constants";
 
-export default function Home({
-  params: { language },
+export default async function Home({
+  params,
 }: {
-  params: {
-    language: string;
-  };
+  params: Promise<{ language: string }>;
 }) {
+  const { language } = await params;
   const text = texts[language] || texts["pt-br"];
 
   return <MainPage texts={text} />;

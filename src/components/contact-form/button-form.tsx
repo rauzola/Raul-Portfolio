@@ -1,18 +1,18 @@
-import { PropsWithChildren } from "react";
-import { Button } from "../ui/button";
-import { useFormStatus } from "react-dom";
+"use client";
 
-interface Props extends PropsWithChildren {}
+import type { ReactNode } from "react";
 
-export const ButtonForm = ({ children }: Props) => {
-  const { pending } = useFormStatus();
-  return (
-    <Button
-      className="w-fit self-center md:self-end border-light-blue"
-      type="submit"
-      disabled={pending}
-    >
-      <span>{children}</span>
-    </Button>
-  );
-};
+interface ButtonFormProps {
+  children: ReactNode;
+  disabled?: boolean;
+}
+
+export const ButtonForm = ({ children, disabled }: ButtonFormProps) => (
+  <button
+    type="submit"
+    disabled={disabled}
+    className="w-full rounded-lg bg-[#00cfea] px-6 py-3 text-sm font-medium text-[#05080e] transition-all duration-200 hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
+  >
+    {children}
+  </button>
+);

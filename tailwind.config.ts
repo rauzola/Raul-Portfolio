@@ -59,6 +59,10 @@ const config: Config = {
           },
         },
       },
+      fontFamily: {
+        display: ["var(--font-syne)", "sans-serif"],
+        "mono-ui": ["var(--font-jetbrains-mono)", "monospace"],
+      },
     },
     animation: {
       MoveUpInitial: "MoveUpInitial",

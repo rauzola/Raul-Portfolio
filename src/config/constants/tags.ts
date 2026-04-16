@@ -19,9 +19,33 @@ export const tags = {
     name: "React.js",
     color: "#61dafb",
   },
+  "Node.js": {
+    name: "Node.js",
+    color: "#43853d",
+  },
   ".NET": {
     name: ".NET",
     color: "#512bd4",
+  },
+  "Tailwind CSS": {
+    name: "Tailwind CSS",
+    color: "#38bdf8",
+  },
+  Supabase: {
+    name: "Supabase",
+    color: "#3ecf8e",
+  },
+  "Prismic CMS": {
+    name: "Prismic CMS",
+    color: "#8b5cf6",
+  },
+  Vercel: {
+    name: "Vercel",
+    color: "#dce7f2",
+  },
+  "shadcn/ui": {
+    name: "shadcn/ui",
+    color: "#f4f4f5",
   },
   Django: {
     name: "Django",

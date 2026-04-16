@@ -1,85 +1,60 @@
 import { ProjectsTexts } from "@/types/texts";
 import { tags } from "../../tags";
 import {
-  img_biblioteca,
-  img_crud,
-  img_ecommerce,
-  img_instagram,
-  img_minesweeper,
-  img_windows,
+  img_habilidadeshumanas,
+  img_marev,
+  img_projetomaisvida,
 } from "@/assets/images/projects";
 
 export const projects: ProjectsTexts = {
   title: "Projects",
   projects: [
     {
-      title: "Bookstore e-commerce",
+      title: "Habilidades Humanas RH",
       description:
-        "Bookstore e-commerce made with Next.js, Typescript, Prisma ORM and PostgreSQL",
+        "Institutional website with Prismic CMS, lead generation and digital positioning for an HR consultancy with 27 years in the market.",
       tags: [
         tags["Next.js"],
         tags["Typescript"],
-        tags["PrismaORM"],
-        tags["PostgreSQL"],
+        tags["Tailwind CSS"],
+        tags["Prismic CMS"],
+        tags["Vercel"],
       ],
-      image: img_ecommerce,
-      height: 1024,
-      width: 1024,
-      github: "https://github.com/EnzoWu479/ecommerce-les",
+      image: img_habilidadeshumanas,
+      url: "https://www.habilidadeshumanasrh.com.br/",
+      width: 1280,
+      height: 720,
     },
     {
-      title: "Window management system",
+      title: "Projeto Mais Vida",
       description:
-        "Window management system made with React.js, Typescript and Next.js",
-      tags: [tags["React.js"], tags["Typescript"], tags["Next.js"]],
-      image: img_windows,
-      github: "https://github.com/EnzoWu479/swodniw",
-      width: 1438,
-      height: 737,
-    },
-    {
-      title: "Users CRUD",
-      description:
-        "Simple users CRUD made with React.js consuming an API made with C#, EF and .NET Core",
+        "Institutional website with Prismic CMS, dynamic event calendar and community management for Projeto Mais Vida.",
       tags: [
-        tags["React.js"],
+        tags["Next.js"],
         tags["Typescript"],
-        tags[".NET"],
-        tags["PostgreSQL"],
+        tags["Prismic CMS"],
+        tags["Tailwind CSS"],
+        tags["Vercel"],
       ],
-      image: img_crud,
-      github: "https://github.com/EnzoWu479/clientes-cadastro-esIII",
-      width: 1376,
-      height: 779,
+      image: img_projetomaisvida,
+      url: "https://www.projetomaisvida.com.br/",
+      width: 1280,
+      height: 720,
     },
     {
-      title: "Instagram Clone",
-      description: "Instagram clone made with Django and jQuery.",
-      tags: [tags["Django"], tags["Python"], tags["jQuery"]],
-      image: img_instagram,
-      github: "https://github.com/EnzoWu479/InstagramDjango",
-    },
-    {
-      title: "Book loans management system",
+      title: "MAREV",
       description:
-        "Book loans management system made with Java, Swing and MongoDB.",
-      tags: [tags["Java"], tags["MongoDB"]],
-      image: img_biblioteca,
-      github: "https://github.com/EnzoWu479/bibliotecav2",
-    },
-    {
-      title: "MineSweeper",
-      description:
-        "MineSweeper game made with Next.js, Typescript, Prisma ORM and PostgreSQL",
-        tags: [
-          tags["Next.js"],
-          tags["Typescript"],
-          tags["PrismaORM"],
-          tags["PostgreSQL"],
-        ],
-      image: img_minesweeper,
-      github: "https://github.com/EnzoWu479/playground-old-games",
+        "Institutional website with Prismic CMS and a transparency area for the Associacao Maringa Apoiando a Recuperacao de Vidas.",
+      tags: [
+        tags["Next.js"],
+        tags["Typescript"],
+        tags["Prismic CMS"],
+        tags["Vercel"],
+      ],
+      image: img_marev,
+      url: "https://www.marev.com.br/",
+      width: 1280,
+      height: 720,
     },
   ],
-  
 };

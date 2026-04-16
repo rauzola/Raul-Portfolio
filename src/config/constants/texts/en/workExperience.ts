@@ -1,6 +1,4 @@
 import { WorkExperienceTexts } from "@/types/texts";
-import { FaReact } from "react-icons/fa";
-import { RiNextjsFill } from "react-icons/ri";
 import { tags } from "../../tags";
 
 export const workExperience: WorkExperienceTexts = {
