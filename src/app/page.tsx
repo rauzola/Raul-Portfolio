@@ -1,5 +1,5 @@
-import { MainPage } from "@/components/main-page";
+import { PortfolioPage } from "@/components/portfolio-page";
 
 export default function Home() {
-  return <MainPage language="pt-br" />;
+  return <PortfolioPage language="pt-br" />;
 }

@@ -5,10 +5,19 @@ import nodemailer from "nodemailer";
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.GMAIL_USER, // seu e-mail do Gmail
-    pass: process.env.GMAIL_PASS, // sua senha de app (não a senha da conta)
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_PASS,
   },
 });
+
+function escapeHtml(value: unknown): string {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -27,14 +36,18 @@ export async function POST(req: NextRequest) {
       timeZone: "America/Sao_Paulo",
     });
 
+    const safeName    = escapeHtml(name);
+    const safeEmail   = escapeHtml(email);
+    const safeMessage = escapeHtml(message);
+
     const htmlEmail = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; color: #333;">
         <h2 style="color: #0073e6;">📨 Novo Contato do Site</h2>
         <hr style="margin: 12px 0;" />
-        <p><strong>Nome:</strong> ${name}</p>
-        <p><strong>E-mail:</strong> ${email}</p>
+        <p><strong>Nome:</strong> ${safeName}</p>
+        <p><strong>E-mail:</strong> ${safeEmail}</p>
         <p><strong>Mensagem:</strong></p>
-        <p style="background-color: #f9f9f9; padding: 10px; border-radius: 6px;">${message}</p>
+        <p style="background-color: #f9f9f9; padding: 10px; border-radius: 6px; white-space: pre-wrap;">${safeMessage}</p>
         <hr />
         <p style="font-size: 0.9em; color: #777;">📅 Contato recebido em: ${dataHora}</p>
       </div>
@@ -43,16 +56,8 @@ export async function POST(req: NextRequest) {
     const emailOptions = {
       from: `"Portfólio Raul Sigoli" <${process.env.GMAIL_USER}>`,
       to: process.env.GMAIL_USER,
-      subject: `📥 Novo Contato: ${name}`,
-      text: `
-        Novo contato recebido pelo site:
-
-        Nome: ${name}
-        E-mail: ${email}
-        Mensagem: ${message}
-
-        Data e Hora: ${dataHora}
-      `,
+      subject: `📥 Novo Contato: ${safeName}`,
+      text: `Novo contato recebido pelo site:\n\nNome: ${name}\nE-mail: ${email}\nMensagem: ${message}\n\nData e Hora: ${dataHora}`,
       html: htmlEmail,
     };
 

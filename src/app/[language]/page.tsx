@@ -1,5 +1,9 @@
-import { MainPage } from "@/components/main-page";
+import { PortfolioPage } from "@/components/portfolio-page";
 import { texts } from "@/config/constants";
+
+export function generateStaticParams() {
+  return [{ language: "en" }];
+}
 
 export default async function Home({
   params,
@@ -9,5 +13,5 @@ export default async function Home({
   const { language } = await params;
   const text = texts[language] || texts["pt-br"];
 
-  return <MainPage texts={text} />;
+  return <PortfolioPage texts={text} language={language} />;
 }

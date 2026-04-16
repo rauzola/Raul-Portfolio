@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import { img_avatar } from "@/assets/images";
 import Link from "next/link";
-import { motion, useMotionValue, useSpring, useTransform, useInView } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, useInView } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { PointerEvent as ReactPointerEvent } from "react";
 import { texts as textBases } from "@/config/constants";
@@ -12,6 +13,7 @@ import type { Texts } from "@/types/texts";
 import { ContactForm } from "./contact-form/contact-form";
 import SectionReveal from "./section-reveal";
 import Tilt3DCard from "./tilt-3d-card";
+import { FleeElement } from "./flee-element";
 
 const HeroScene3D = dynamic(() => import("./hero-scene-3d"), { ssr: false });
 const HeroDiamonds = dynamic(() => import("./hero-diamonds"), { ssr: false });
@@ -66,7 +68,6 @@ const links = {
 };
 
 const profile = {
-  avatarUrl: "https://avatars.githubusercontent.com/u/57502280?v=4",
   publicRepos: 92,
 };
 
@@ -167,6 +168,8 @@ export const PortfolioPage = ({
   const [lastManualClick, setLastManualClick] = useState(0);
   const wordmarkRef = useRef<HTMLDivElement>(null);
   const isWordmarkInteractingRef = useRef(false);
+  const prevProjectIndexRef = useRef(0);
+  const projectDirectionRef = useRef(1);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -701,6 +704,11 @@ export const PortfolioPage = ({
     return () => window.clearInterval(interval);
   }, [featuredProjects.length, lastManualClick]);
 
+  useEffect(() => {
+    projectDirectionRef.current = activeProjectIndex >= prevProjectIndexRef.current ? 1 : -1;
+    prevProjectIndexRef.current = activeProjectIndex;
+  }, [activeProjectIndex]);
+
   const activeProject = featuredProjects[activeProjectIndex] ?? null;
   const showcaseProjects = featuredProjects.map((project) => ({
     color: project.theme.accent,
@@ -989,12 +997,14 @@ export const PortfolioPage = ({
             className="mb-10 flex flex-wrap justify-center gap-2.5"
           >
             {copy.hero.highlights.map((item) => (
-              <div
+              <FleeElement
                 key={item}
                 className="rounded-full border border-white/10 bg-[#0b1220]/80 px-4 py-2 text-xs text-[#8aa2b8] backdrop-blur-md"
+                radius={96}
+                strength={38}
               >
                 {item}
-              </div>
+              </FleeElement>
             ))}
           </motion.div>
 
@@ -1039,17 +1049,18 @@ export const PortfolioPage = ({
             className="flex flex-wrap justify-center gap-3"
           >
             {copy.hero.stats.map((stat, index) => (
-              <motion.div
+              <FleeElement
                 key={stat.label}
-                whileHover={{ scale: 1.05, y: -4 }}
                 className="animate-float-gentle rounded-full border border-white/5 bg-[#0b1220] px-5 py-3 text-left"
-                style={{ animationDelay: `${index * 0.8}s` }}
+                style={{ animationDelay: `${index * 0.8}s` } as React.CSSProperties}
+                radius={100}
+                strength={42}
               >
                 <div className="font-display text-lg font-extrabold tracking-[-0.03em] text-[#dce7f2]">
                   <AnimatedMetric value={stat.value} />
                 </div>
                 <div className="text-xs text-[#607a93]">{stat.label}</div>
-              </motion.div>
+              </FleeElement>
             ))}
           </motion.div>
         </div>
@@ -1084,11 +1095,12 @@ export const PortfolioPage = ({
                 <div className="rounded-[24px] border border-white/5 bg-[#0b1220] p-9 text-center shadow-[0_18px_60px_rgba(0,0,0,0.24)]">
                   <div className="mx-auto mb-5 h-24 w-24 overflow-hidden rounded-full border-2 border-[rgba(0,207,234,0.22)] bg-[#05080e] shadow-[0_0_28px_rgba(0,207,234,0.14)]">
                     <Image
-                      src={profile.avatarUrl}
+                      src={img_avatar}
                       alt="Raul Sigoli"
                       width={96}
                       height={96}
                       className="h-full w-full object-cover"
+                      priority
                     />
                   </div>
                   <div className="font-display mb-1 text-[9px] font-light uppercase tracking-[0.4em] text-[#607a93]">
@@ -1115,15 +1127,17 @@ export const PortfolioPage = ({
 
               <div className="grid grid-cols-2 gap-3">
                 {copy.about.cards.map((item) => (
-                  <Tilt3DCard key={item.label} intensity={14}>
-                    <div className="rounded-2xl border border-white/5 bg-[#0b1220] p-5 text-center shadow-[0_18px_40px_rgba(0,0,0,0.18)]">
-                      <div className="font-display text-2xl font-extrabold text-[#dce7f2]">
-                        {item.value}
-                        <span className="text-sm text-[#00cfea]">{item.accent}</span>
+                  <FleeElement key={item.label} radius={80} strength={28}>
+                    <Tilt3DCard intensity={14}>
+                      <div className="rounded-2xl border border-white/5 bg-[#0b1220] p-5 text-center shadow-[0_18px_40px_rgba(0,0,0,0.18)]">
+                        <div className="font-display text-2xl font-extrabold text-[#dce7f2]">
+                          {item.value}
+                          <span className="text-sm text-[#00cfea]">{item.accent}</span>
+                        </div>
+                        <div className="text-xs text-[#607a93]">{item.label}</div>
                       </div>
-                      <div className="text-xs text-[#607a93]">{item.label}</div>
-                    </div>
-                  </Tilt3DCard>
+                    </Tilt3DCard>
+                  </FleeElement>
                 ))}
               </div>
             </motion.div>
@@ -1271,8 +1285,8 @@ export const PortfolioPage = ({
 
           {activeProject ? (
             <div className="mt-12 grid items-center gap-8 lg:grid-cols-[1fr_1.1fr] lg:min-h-[600px]">
+              {/* Lado esquerdo — canvas 3D não precisa remontar, só anima na entrada */}
               <motion.div
-                key={activeProject.url}
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45 }}
@@ -1297,94 +1311,164 @@ export const PortfolioPage = ({
                 </div>
               </motion.div>
 
-              <motion.div
-                key={`${activeProject.url}-info`}
-                initial={{ opacity: 0, x: 28 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4 }}
-              >
-                <Tilt3DCard intensity={6}>
-                  <div className="rounded-[28px] border border-white/5 bg-[#0b1220] p-8 shadow-[0_22px_70px_rgba(0,0,0,0.22)] lg:p-10">
-                    <div className="mb-5 flex flex-wrap items-center gap-3">
-                      <span className="font-mono-ui text-[11px] text-[#243446]">{activeProject.index}</span>
-                      <span
-                        className="font-mono-ui rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.1em]"
-                        style={{
-                          color: activeProject.theme.accent,
-                          borderColor: `${activeProject.theme.accent}33`,
-                          backgroundColor: `${activeProject.theme.accent}14`,
-                        }}
+              {/* Lado direito — AnimatePresence para exit antes de enter */}
+              <AnimatePresence mode="wait" custom={projectDirectionRef.current}>
+                <motion.div
+                  key={activeProject.url}
+                  custom={projectDirectionRef.current}
+                  variants={{
+                    enter: (dir: number) => ({
+                      opacity: 0,
+                      x: dir * 48,
+                      filter: "blur(6px)",
+                    }),
+                    visible: {
+                      opacity: 1,
+                      x: 0,
+                      filter: "blur(0px)",
+                      transition: { duration: 0.38, ease: [0.22, 1, 0.36, 1] },
+                    },
+                    exit: (dir: number) => ({
+                      opacity: 0,
+                      x: dir * -36,
+                      filter: "blur(6px)",
+                      transition: { duration: 0.22, ease: [0.4, 0, 1, 1] },
+                    }),
+                  }}
+                  initial="enter"
+                  animate="visible"
+                  exit="exit"
+                >
+                  <Tilt3DCard intensity={6}>
+                    <div className="rounded-[28px] border border-white/5 bg-[#0b1220] p-8 shadow-[0_22px_70px_rgba(0,0,0,0.22)] lg:p-10">
+                      {/* Header badges */}
+                      <motion.div
+                        className="mb-5 flex flex-wrap items-center gap-3"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.08, duration: 0.3 }}
                       >
-                        {activeProject.badge}
-                      </span>
-                      <span className="font-mono-ui flex items-center gap-2 text-[10px] uppercase tracking-[0.1em] text-[#0aeeb5]">
-                        <span className="h-2 w-2 rounded-full bg-[#0aeeb5] animate-live-pulse" />
-                        {copy.projects.live}
-                      </span>
-                    </div>
-
-                    <h3 className="font-display text-[30px] font-extrabold tracking-[-0.04em] text-[#dce7f2]">
-                      {activeProject.title}
-                    </h3>
-                    <p className="mt-3 text-[15px] leading-8 text-[#607a93]">{activeProject.description}</p>
-
-                    <div className="mt-6 flex flex-wrap gap-2">
-                      {activeProject.tags.map((tag) => (
+                        <span className="font-mono-ui text-[11px] text-[#243446]">{activeProject.index}</span>
                         <span
-                          key={tag.name}
-                          className="font-mono-ui rounded-md border border-white/10 px-2.5 py-1 text-[11px]"
+                          className="font-mono-ui rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.1em]"
                           style={{
-                            color: tag.color,
-                            backgroundColor: `${tag.color}14`,
-                            borderColor: `${tag.color}33`,
+                            color: activeProject.theme.accent,
+                            borderColor: `${activeProject.theme.accent}33`,
+                            backgroundColor: `${activeProject.theme.accent}14`,
                           }}
                         >
-                          {tag.name}
+                          {activeProject.badge}
                         </span>
-                      ))}
-                    </div>
+                        <span className="font-mono-ui flex items-center gap-2 text-[10px] uppercase tracking-[0.1em] text-[#0aeeb5]">
+                          <span className="h-2 w-2 rounded-full bg-[#0aeeb5] animate-live-pulse" />
+                          {copy.projects.live}
+                        </span>
+                      </motion.div>
 
-                    <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
-                      {activeProject.results.map((result) => (
-                        <div
-                          key={`${result.value}-${result.label}`}
-                          className="rounded-2xl border border-white/5 bg-[#111827] p-4 text-center"
+                      {/* Título + descrição */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.14, duration: 0.32 }}
+                      >
+                        <h3 className="font-display text-[30px] font-extrabold tracking-[-0.04em] text-[#dce7f2]">
+                          {activeProject.title}
+                        </h3>
+                        <p className="mt-3 text-[15px] leading-8 text-[#607a93]">{activeProject.description}</p>
+                      </motion.div>
+
+                      {/* Tech tags */}
+                      <motion.div
+                        className="mt-6 flex flex-wrap gap-2"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.2, duration: 0.28 }}
+                      >
+                        {activeProject.tags.map((tag) => (
+                          <FleeElement
+                            key={tag.name}
+                            className="font-mono-ui rounded-md border border-white/10 px-2.5 py-1 text-[11px]"
+                            style={{
+                              color: tag.color,
+                              backgroundColor: `${tag.color}14`,
+                              borderColor: `${tag.color}33`,
+                            }}
+                            radius={68}
+                            strength={24}
+                          >
+                            {tag.name}
+                          </FleeElement>
+                        ))}
+                      </motion.div>
+
+                      {/* Resultado — stagger nos 3 cards */}
+                      <motion.div
+                        className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3"
+                        initial="hidden"
+                        animate="visible"
+                        variants={{
+                          hidden: {},
+                          visible: {
+                            transition: { staggerChildren: 0.09, delayChildren: 0.26 },
+                          },
+                        }}
+                      >
+                        {activeProject.results.map((result) => (
+                          <motion.div
+                            key={`${result.value}-${result.label}`}
+                            variants={{
+                              hidden: { opacity: 0, y: 18, scale: 0.92 },
+                              visible: {
+                                opacity: 1,
+                                y: 0,
+                                scale: 1,
+                                transition: { duration: 0.34, ease: [0.22, 1, 0.36, 1] },
+                              },
+                            }}
+                            className="rounded-2xl border border-white/5 bg-[#111827] p-4 text-center"
+                          >
+                            <div className="font-display text-2xl font-extrabold tracking-[-0.04em] text-[#dce7f2]">
+                              {result.value}
+                              <span className="text-[#00cfea]">{result.accent}</span>
+                            </div>
+                            <div className="mt-1 text-[11px] uppercase tracking-[0.08em] text-[#607a93]">
+                              {result.label}
+                            </div>
+                          </motion.div>
+                        ))}
+                      </motion.div>
+
+                      {/* CTAs */}
+                      <motion.div
+                        className="mt-8 flex flex-wrap gap-3"
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.44, duration: 0.28 }}
+                      >
+                        <Link
+                          href={activeProject.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-2 rounded-lg border border-[rgba(0,207,234,0.24)] bg-[rgba(0,207,234,0.08)] px-4 py-2.5 text-sm font-medium text-[#00cfea] transition-transform duration-200 hover:bg-[rgba(0,207,234,0.12)] will-change-transform"
+                          onPointerMove={handleMagnetMove}
+                          onPointerLeave={handleMagnetLeave}
                         >
-                          <div className="font-display text-2xl font-extrabold tracking-[-0.04em] text-[#dce7f2]">
-                            {result.value}
-                            <span className="text-[#00cfea]">{result.accent}</span>
-                          </div>
-                          <div className="mt-1 text-[11px] uppercase tracking-[0.08em] text-[#607a93]">
-                            {result.label}
-                          </div>
-                        </div>
-                      ))}
+                          {copy.projects.cta}
+                          <span aria-hidden="true">↗</span>
+                        </Link>
+                        <Link
+                          href="#contact"
+                          className="inline-flex items-center rounded-lg border border-white/10 px-4 py-2.5 text-sm text-[#dce7f2] transition-transform duration-200 hover:border-[rgba(0,207,234,0.22)] hover:text-[#00cfea] will-change-transform"
+                          onPointerMove={handleMagnetMove}
+                          onPointerLeave={handleMagnetLeave}
+                        >
+                          {copy.nav.contact}
+                        </Link>
+                      </motion.div>
                     </div>
-
-                    <div className="mt-8 flex flex-wrap gap-3">
-                      <Link
-                        href={activeProject.url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-2 rounded-lg border border-[rgba(0,207,234,0.24)] bg-[rgba(0,207,234,0.08)] px-4 py-2.5 text-sm font-medium text-[#00cfea] transition-transform duration-200 hover:bg-[rgba(0,207,234,0.12)] will-change-transform"
-                        onPointerMove={handleMagnetMove}
-                        onPointerLeave={handleMagnetLeave}
-                      >
-                        {copy.projects.cta}
-                        <span aria-hidden="true">↗</span>
-                      </Link>
-                      <Link
-                        href="#contact"
-                        className="inline-flex items-center rounded-lg border border-white/10 px-4 py-2.5 text-sm text-[#dce7f2] transition-transform duration-200 hover:border-[rgba(0,207,234,0.22)] hover:text-[#00cfea] will-change-transform"
-                        onPointerMove={handleMagnetMove}
-                        onPointerLeave={handleMagnetLeave}
-                      >
-                        {copy.nav.contact}
-                      </Link>
-                    </div>
-                  </div>
-                </Tilt3DCard>
-              </motion.div>
+                  </Tilt3DCard>
+                </motion.div>
+              </AnimatePresence>
             </div>
           ) : null}
         </SectionReveal>
@@ -1421,12 +1505,14 @@ export const PortfolioPage = ({
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {category.tags.map((tag) => (
-                          <span
+                          <FleeElement
                             key={tag}
                             className="font-mono-ui rounded-md border border-[rgba(0,207,234,0.12)] bg-[rgba(0,207,234,0.06)] px-2.5 py-1 text-[11px] text-[#8fc8d6]"
+                            radius={72}
+                            strength={26}
                           >
                             {tag}
-                          </span>
+                          </FleeElement>
                         ))}
                       </div>
                     </div>
@@ -1480,19 +1566,20 @@ export const PortfolioPage = ({
 
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             {copy.testimonial.proof.map((item, index) => (
-              <motion.div
-                key={item}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.08 }}
-                className="rounded-[20px] border border-white/5 bg-[#0b1220] p-5"
-              >
-                <div className="font-mono-ui mb-2 text-[10px] uppercase tracking-[0.14em] text-[#00cfea]">
-                  {(index + 1).toString().padStart(2, "0")}
-                </div>
-                <div className="text-sm leading-7 text-[#8aa2b8]">{item}</div>
-              </motion.div>
+              <FleeElement key={item} radius={90} strength={30}>
+                <motion.div
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.08 }}
+                  className="rounded-[20px] border border-white/5 bg-[#0b1220] p-5"
+                >
+                  <div className="font-mono-ui mb-2 text-[10px] uppercase tracking-[0.14em] text-[#00cfea]">
+                    {(index + 1).toString().padStart(2, "0")}
+                  </div>
+                  <div className="text-sm leading-7 text-[#8aa2b8]">{item}</div>
+                </motion.div>
+              </FleeElement>
             ))}
           </div>
         </SectionReveal>

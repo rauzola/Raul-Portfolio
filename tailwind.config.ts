@@ -5,86 +5,46 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/styles/custom-animation.css",
-    "./src/styles/stroke-animation.css",
   ],
   theme: {
-    colors: {
-      "black-blue": "#1795a8",
-      "light-blue": "#24afc1",
-      yellow: "#fccf47",
-      white: "#f8f8f8",
-      "dark-gray": "#141416",
-      "gray": "#666",
-      "dark-gray-1": "#222",
-      "black": "#000",
-      "error": "#FF6969",
-    },
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-        "background-home": "url('/assets/images/bg.png')",
-        
-      },
-      keyframes: {
-        MoveUpInitial: {
-          to: {
-            transform: "translate3d(0,-105%,0)",
-          },
-        },
-        MoveUpEnd: {
-          from: {
-            transform: "translate3d(0,100%,0)",
-          },
-          to: {
-            transform: "translate3d(0,0,0)",
-          },
-        },
-        Floating: {
-          "0%, 100%": {
-            transform: "translateY(0)",
-          },
-          "50%": {
-            transform: "translateY(-1%)",
-          },
-        },
-        AutoRun: {
-          "0%": {
-            transform: "perspective(800px) rotateX(-16deg) rotateY(0deg)",
-          },
-          "100%": {
-            transform: "perspective(800px) rotateX(-16deg) rotateY(360deg)",
-          },
-        },
-      },
       fontFamily: {
         display: ["var(--font-syne)", "sans-serif"],
         "mono-ui": ["var(--font-jetbrains-mono)", "monospace"],
       },
-    },
-    animation: {
-      MoveUpInitial: "MoveUpInitial",
-      MoveUpEnd: "MoveUpEnd",
-      Floating: "Floating 2s infinite",
-      AutoRun: "AutoRun 20s linear infinite",
+      keyframes: {
+        /* Hero grid background drift */
+        "grid-drift": {
+          "0%":   { transform: "translateY(0px)" },
+          "100%": { transform: "translateY(-60px)" },
+        },
+        /* Gentle float for stat cards and divider diamonds */
+        "float-gentle": {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%":       { transform: "translateY(-8px)" },
+        },
+        /* Pulsing dot for "live" indicators */
+        "live-pulse": {
+          "0%, 100%": { opacity: "1",   transform: "scale(1)" },
+          "50%":       { opacity: "0.4", transform: "scale(0.78)" },
+        },
+        /* Scroll indicator line */
+        "scroll-line": {
+          "0%":   { transform: "scaleY(0)",   transformOrigin: "top",    opacity: "1" },
+          "48%":  { transform: "scaleY(1)",   transformOrigin: "top",    opacity: "1" },
+          "50%":  { transform: "scaleY(1)",   transformOrigin: "bottom", opacity: "1" },
+          "100%": { transform: "scaleY(0)",   transformOrigin: "bottom", opacity: "0" },
+        },
+      },
+      animation: {
+        "grid-drift":    "grid-drift 14s linear infinite",
+        "float-gentle":  "float-gentle 3.4s ease-in-out infinite",
+        "live-pulse":    "live-pulse 1.9s ease-in-out infinite",
+        "scroll-line":   "scroll-line 2s ease-in-out infinite",
+      },
     },
   },
   plugins: [],
 };
-// @keyframes MoveUpInitial {
-// 	to {
-// 		transform: translate3d(0,-105%,0);
-// 	}
-// }
 
-// @keyframes MoveUpEnd {
-// 	from {
-// 		transform: translate3d(0,100%,0);
-// 	}
-// 	to {
-// 		transform: translate3d(0,0,0);
-// 	}
-// }
 export default config;

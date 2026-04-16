@@ -13,6 +13,7 @@ interface Props {
 }
 
 export const ContactForm = ({ texts }: Props) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<{
     isSuccess: boolean;
     errors?: Record<string, string[]>;
@@ -30,23 +31,23 @@ export const ContactForm = ({ texts }: Props) => {
       message: formData.get("message"),
     };
 
-    const res = await fetch("/api/contato", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-
-    if (res.ok) {
-      setResult({ isSuccess: true });
-      form.reset();
-    } else {
-      const errorData = await res.json();
-      setResult({
-        isSuccess: false,
-        errors: errorData?.errors || {},
+    setIsLoading(true);
+    try {
+      const res = await fetch("/api/contato", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
       });
+
+      if (res.ok) {
+        setResult({ isSuccess: true });
+        form.reset();
+      } else {
+        const errorData = await res.json();
+        setResult({ isSuccess: false, errors: errorData?.errors || {} });
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -61,7 +62,7 @@ export const ContactForm = ({ texts }: Props) => {
           <CheckIcon />
         </div>
         <h2 className="text-3xl">{texts.successTitle}</h2>
-        <p className="text-gray">{texts.successMessage}</p>
+        <p className="text-[#607a93]">{texts.successMessage}</p>
       </motion.div>
     );
   }
@@ -93,8 +94,8 @@ export const ContactForm = ({ texts }: Props) => {
         <InputLabel htmlFor="message">{texts.messageLabel}</InputLabel>
         <textarea
           className={cn(
-            "bg-dark-gray shadow-lg border border-black-blue h-40 py-2 text-sm px-4 rounded-lg w-full",
-            !!result?.errors?.message && "border-error"
+            "h-40 w-full rounded-xl border border-white/10 bg-[#0b1220] px-4 py-3 text-sm text-[#dce7f2] shadow-[0_12px_30px_rgba(0,0,0,0.22)] outline-none transition focus:border-[#00cfea]",
+            !!result?.errors?.message && "border-[#ff6b6b]"
           )}
           placeholder={texts.messagePlaceholder}
           name="message"
@@ -102,7 +103,9 @@ export const ContactForm = ({ texts }: Props) => {
         />
         <ErrorMessage>{result?.errors?.message?.[0]}</ErrorMessage>
       </div>
-      <ButtonForm>{texts.sendButton}</ButtonForm>
+      <ButtonForm disabled={isLoading}>
+        {isLoading ? "Enviando..." : texts.sendButton}
+      </ButtonForm>
     </form>
   );
 };
