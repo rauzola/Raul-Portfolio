@@ -4,6 +4,13 @@ import { Canvas, type CanvasProps } from "@react-three/fiber";
 import { useInView } from "framer-motion";
 import { useRef, type ReactNode } from "react";
 
+/**
+ * Lazy-mounting WebGL wrapper.
+ *
+ * - Defers Canvas creation until the element enters the viewport (220px margin).
+ * - Pauses the render loop (`frameloop="never"`) when off-screen.
+ * - Set `eager` to mount immediately (hero scene).
+ */
 interface SceneCanvasProps extends Omit<CanvasProps, "children" | "gl"> {
   children: ReactNode;
   className?: string;

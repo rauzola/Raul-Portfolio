@@ -1,3 +1,14 @@
+/**
+ * Returns the full bilingual copy object for the portfolio.
+ * All user-facing strings live here — components receive typed slices.
+ *
+ * Usage:
+ *   const copy = getCopy(isEnglish);
+ *   // copy.nav, copy.hero, copy.about, copy.services,
+ *   // copy.projects, copy.tech, copy.testimonial,
+ *   // copy.process, copy.contact, copy.footer
+ */
+
 const PUBLIC_REPOS = 92;
 
 export function getCopy(isEnglish: boolean) {

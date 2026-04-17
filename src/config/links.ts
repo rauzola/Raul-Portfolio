@@ -1,3 +1,4 @@
+/** Centralized external links — update here, propagates everywhere. */
 export const LINKS = {
   email: "mailto:raulsigoli2000@gmail.com",
   linkedin: "https://www.linkedin.com/in/raul-sigoli-137bb4173/",

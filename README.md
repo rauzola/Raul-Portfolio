@@ -1,92 +1,137 @@
-# Meu Portfólio
+# raulsigoli.com.br — Portfolio v3
 
-Bem-vindo ao meu portfólio! Este site foi desenvolvido para mostrar meus projetos, habilidades e experiência como desenvolvedor. Ele foi construído com Next.js e tailwind e inclui animações 3D com Three.js e um sistema de envio de e-mails na seção de contato utilizando Nodemailer.
+Site comercial de Raul Sigoli, desenvolvedor Full-Stack freelancer em Maringá, PR.  
+Foco em captação de clientes: clareza, autoridade e conversão — não showcase técnico.
 
-## Links
+## Stack
 
-- <a href="https://portifolio-enzo.vercel.app" target="_blank">Deploy</a>
-- <a href="https://www.linkedin.com/posts/enzo-wu_portfolio-nextjs-threejs-activity-7223451272757035008-71ZX?utm_source=share&utm_medium=member_desktop" target="_blank">Postagem no linkedin</a>
+| Camada | Tecnologia |
+|--------|------------|
+| Framework | Next.js 16 (App Router, Turbopack) |
+| UI | React 19, TypeScript, Tailwind CSS |
+| Animações | Framer Motion 11 |
+| 3D / WebGL | @react-three/fiber 9, Three.js 0.182 |
+| Email | Nodemailer + Gmail OAuth |
+| Deploy | Vercel |
 
-## Tecnologias Utilizadas
+## Rotas
 
-- <a href="https://nextjs.org/" target="_blank">Next.js</a>
-- <a href="https://threejs.org/" target="_blank">Three.js</a>
-- <a href="https://nodemailer.com/" target="_blank">Nodemailer</a>
-- <a href="https://reactjs.org/" target="_blank">React</a>
-- <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">JavaScript</a>
-- <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank">CSS</a>
-
-## Funcionalidades
-
-- **Projetos:** Uma seção dedicada aos meus projetos, com detalhes e links para repositórios ou demonstrações.
-- **Tecnologias:** Uma lista das minhas principais tecnologias.
-- **Expiência profissional:** Uma breve descrição sobre minha jornada como desenvolvedor.
-- **Contato:** Um formulário de contato que utiliza Nodemailer para envio de e-mails diretamente do site.
-- **Animações 3D:** Utilização de Three.js para criar animações e tornar a navegação mais envolvente.
-- **Animações Motion:** Utilização de framer motion para criar animações e tornar a navegação mais agradável.
-
-## Como Rodar o Projeto
-
-Para rodar o projeto localmente, siga os passos abaixo:
-
-1. Clone o repositório:
-    ```bash
-    git clone https://github.com/EnzoWu479/portifolio-enzo
-    ```
-2. Entre na pasta do projeto:
-    ```bash
-    cd portifolio-enzo
-    ```
-3. Instale as dependências:
-    ```bash
-    pnpm install
-    ```
-4. Configure as variáveis de ambiente para o Nodemailer:
-    - Crie um arquivo `.env.local` na raiz do projeto com as seguintes informações:
-        ```env
-        RECEIVER_EMAIL=emaildestino@seuemail.com
-        SENDER_EMAIL=emailenviador@seuemail.com
-        SENDER_PASSWORD=senhadoemailenviador
-        ```
-5. Inicie o servidor de desenvolvimento:
-    ```bash
-    pnpm dev
-    ```
-6. Abra [http://localhost:3000](http://localhost:3000) no seu navegador para ver o resultado.
-
-## Estrutura do Projeto
-
-```bash
-.
-├───app
-│   └───[language]
-├───assets
-│   ├───images
-│   │   └───projects
-│   └───lang
-├───components
-│   ├───canvas
-│   ├───contact-form
-│   ├───icons
-│   ├───sections
-│   ├───slider-3d
-│   └───ui
-├───config
-│   └───constants
-│       └───texts
-│           ├───en
-│           └───pt-br
-├───lib
-│   └───email
-├───styles
-├───types
-└───utils
+```
+/          →  página principal (pt-BR) — estática
+/en        →  página em inglês — SSG via generateStaticParams
+/api/contato  →  POST — envio de email via Nodemailer
 ```
 
-## Contribuições
+## Variáveis de ambiente
 
-Contribuições são bem-vindas! Se você tiver sugestões, encontrar bugs ou quiser adicionar novas funcionalidades, sinta-se à vontade para abrir uma issue ou enviar um pull request.
+Crie `.env.local` na raiz:
 
-## Licença
+```env
+GMAIL_USER=seu@gmail.com
+GMAIL_PASS=sua_app_password
+NEXT_PUBLIC_SITE_URL=https://raulsigoli.com.br
+```
 
-Este projeto está licenciado sob a [MIT License](LICENSE).
+## Como rodar localmente
+
+```bash
+git clone https://github.com/rauzola/raul-portfolio
+cd raul-portfolio
+npm install
+cp .env.local.example .env.local   # preencha as variáveis
+npm run dev
+```
+
+Acesse [http://localhost:3000](http://localhost:3000).
+
+## Estrutura do projeto
+
+```
+src/
+├── app/
+│   ├── (default)/          # rota / — pt-BR
+│   ├── (localized)/[language]/  # rota /en
+│   ├── fonts.ts            # Syne, DM Sans, JetBrains Mono
+│   ├── layout.tsx
+│   └── sitemap.ts
+│
+├── components/
+│   ├── sections/           # 11 seções da página
+│   │   ├── hero-section.tsx
+│   │   ├── about-section.tsx
+│   │   ├── services-section.tsx
+│   │   ├── projects-section.tsx
+│   │   ├── tech-section.tsx
+│   │   ├── testimonial-section.tsx
+│   │   ├── process-section.tsx
+│   │   ├── contact-section.tsx
+│   │   ├── footer-section.tsx
+│   │   ├── portfolio-nav.tsx
+│   │   └── sticky-bar.tsx
+│   ├── portfolio-page.tsx  # orquestrador principal (~200 linhas)
+│   ├── scene-canvas.tsx    # wrapper WebGL com viewport gating
+│   ├── hero-scene-3d.tsx   # cena 3D do hero
+│   ├── tech-orbit-3d.tsx   # órbita de tecnologias
+│   ├── projects-showcase-3d.tsx
+│   ├── process-scene-3d.tsx
+│   ├── contact-scene-3d.tsx
+│   ├── custom-cursor.tsx   # cursor animado (desktop only)
+│   ├── flee-element.tsx    # wrapper com física de fuga do cursor
+│   ├── floating-divider.tsx
+│   ├── hero-diamonds.tsx
+│   ├── section-reveal.tsx  # fade-in via IntersectionObserver
+│   └── tilt-3d-card.tsx
+│
+├── config/
+│   ├── copy.ts             # getCopy(isEnglish) — todo copy bilíngue
+│   ├── links.ts            # LINKS + getWhatsAppLink()
+│   └── constants/          # dados dos projetos, textos base
+│
+├── lib/
+│   ├── magnet.ts           # handleMagnetMove / handleMagnetLeave
+│   ├── physics.ts          # calcDist, normalizePointer
+│   ├── spring-configs.ts   # configs de spring Framer Motion
+│   ├── site-metadata.ts    # siteUrl, metadata base
+│   └── utils.ts            # cn(), getHostname()
+│
+└── types/
+    ├── pointer.ts          # PointerState { x, y }
+    ├── projects.ts         # Project, FeaturedProject
+    └── texts.ts
+```
+
+## Arquitetura de componentes
+
+`portfolio-page.tsx` é o único ponto de orquestração — computa `copy`, `whatsappLink`, `featuredProjects` e `contactItems` via `useMemo`, depois renderiza as seções em sequência. Cada seção recebe apenas um slice tipado do copy (`copy: Copy["hero"]`, `copy: Copy["about"]`, etc.) em vez do objeto completo.
+
+## Copy bilíngue
+
+Todo texto da UI vive em `src/config/copy.ts`:
+
+```ts
+import { getCopy } from "@/config/copy";
+
+const copy = getCopy(isEnglish); // retorna objeto tipado
+// copy.nav, copy.hero, copy.about, copy.services,
+// copy.projects, copy.tech, copy.testimonial,
+// copy.process, copy.contact, copy.footer
+```
+
+## WebGL / 3D — viewport gating
+
+Todos os componentes 3D são carregados com `dynamic({ ssr: false })` e montados via `scene-canvas.tsx`, que:
+
+- Só monta o `<Canvas>` após o elemento entrar no viewport (220px de margem)
+- Pausa o loop de render com `frameloop="never"` quando fora da tela
+- Usa `antialias: false` e `powerPreference: "high-performance"`
+
+## Cursor animado
+
+`CustomCursor` só ativa listeners e springs em dispositivos com mouse (`pointer: fine`). Em touch, o `useEffect` retorna antes de qualquer setup.
+
+## SEO
+
+- Schema.org JSON-LD `@graph` (Person + WebSite)
+- `hreflang` pt-BR / en via `alternates`
+- OG images geradas por rota (`opengraph-image.tsx`)
+- Sitemap estático em `/sitemap.xml`
