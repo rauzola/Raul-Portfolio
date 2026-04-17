@@ -2,7 +2,8 @@
 
 import { Float, RoundedBox } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { Suspense, useRef } from "react";
+import { Suspense, useMemo, useRef } from "react";
+import { deterministicRange } from "@/lib/deterministic-random";
 import * as THREE from "three";
 import SceneCanvas from "./scene-canvas";
 
@@ -58,21 +59,25 @@ function FloatingScreen({
 
 function ParticlePoint({ index }: { index: number }) {
   const ref = useRef<THREE.Mesh>(null);
-  const point = useRef({
-    x: (Math.random() - 0.5) * 12,
-    y: (Math.random() - 0.5) * 8,
-    z: (Math.random() - 0.5) * 12,
-    speed: Math.random() * 0.5 + 0.2,
-  });
+  const point = useMemo(() => {
+    const seed = index * 10;
+
+    return {
+      x: deterministicRange(seed + 1, -6, 6),
+      y: deterministicRange(seed + 2, -4, 4),
+      z: deterministicRange(seed + 3, -6, 6),
+      speed: deterministicRange(seed + 4, 0.2, 0.7),
+    };
+  }, [index]);
 
   useFrame((state) => {
     if (!ref.current) return;
 
-    ref.current.position.y = point.current.y + Math.sin(state.clock.elapsedTime * point.current.speed + index) * 0.5;
+    ref.current.position.y = point.y + Math.sin(state.clock.elapsedTime * point.speed + index) * 0.5;
   });
 
   return (
-    <mesh ref={ref} position={[point.current.x, point.current.y, point.current.z]}>
+    <mesh ref={ref} position={[point.x, point.y, point.z]}>
       <sphereGeometry args={[0.02, 8, 8]} />
       <meshBasicMaterial color="#00CFEA" transparent opacity={0.4} />
     </mesh>

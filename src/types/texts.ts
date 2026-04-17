@@ -55,6 +55,10 @@ export interface ContactTexts {
   messageLabel: string;
   messagePlaceholder: string;
   sendButton: string;
+  sendingButton: string;
+  requiredFieldError: string;
+  invalidEmailError: string;
+  submitError: string;
 
   successTitle: string;
   successMessage: string;

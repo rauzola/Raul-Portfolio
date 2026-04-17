@@ -9,6 +9,10 @@ export const contact: ContactTexts = {
   nameLabel: "Your name",
   namePlaceholder: "Type your name",
   sendButton: "Send",
+  sendingButton: "Sending...",
+  requiredFieldError: "Please fill out this field.",
+  invalidEmailError: "Please enter a valid email.",
+  submitError: "Could not send your message right now. Please try again shortly.",
   successMessage: "Your message was sent successfully!",
   successTitle: "Message sent",
 }

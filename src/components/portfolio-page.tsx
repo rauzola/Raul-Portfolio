@@ -64,7 +64,6 @@ const links = {
   email: "mailto:raulsigoli2000@gmail.com",
   linkedin: "https://www.linkedin.com/in/raul-sigoli-137bb4173/",
   github: "https://github.com/rauzola",
-  cv: "/assets/cv.pdf",
 };
 
 const profile = {
@@ -164,12 +163,14 @@ export const PortfolioPage = ({
   const [scrolled, setScrolled] = useState(false);
   const [showStickyBar, setShowStickyBar] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeProjectIndex, setActiveProjectIndex] = useState(0);
+  const [currentHash, setCurrentHash] = useState("");
+  const [projectState, setProjectState] = useState({
+    index: 0,
+    direction: 1,
+  });
   const [lastManualClick, setLastManualClick] = useState(0);
   const wordmarkRef = useRef<HTMLDivElement>(null);
   const isWordmarkInteractingRef = useRef(false);
-  const prevProjectIndexRef = useRef(0);
-  const projectDirectionRef = useRef(1);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -181,6 +182,15 @@ export const PortfolioPage = ({
     window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const syncHash = () => setCurrentHash(window.location.hash);
+
+    syncHash();
+    window.addEventListener("hashchange", syncHash);
+
+    return () => window.removeEventListener("hashchange", syncHash);
   }, []);
 
   useEffect(() => {
@@ -249,7 +259,6 @@ export const PortfolioPage = ({
         "Open calendar for websites, CMS structures, local SEO and custom systems. Scope, timeline and investment are defined clearly before development starts.",
       cards: [
         { value: `${profile.publicRepos}`, accent: "+", label: "public repositories" },
-        { value: "Sep/25", accent: "", label: "ID Brasil Sistemas" },
       ],
     },
     services: {
@@ -414,7 +423,7 @@ export const PortfolioPage = ({
       hero: {
         badge: "Disponivel para novos projetos",
         badgeDetail: "Agenda aberta",
-        kicker: "Full-Stack Developer · Maringa, PR · ID Brasil + SIGOLI",
+        kicker: "Full-Stack Developer · Maringa, PR · SIGOLI",
         titleTop: "Raul",
         titleBottom: "SIGOLI",
         description:
@@ -445,7 +454,6 @@ export const PortfolioPage = ({
           "Agenda aberta para sites, CMS, SEO local e sistemas personalizados. Escopo, prazo e investimento ficam claros antes do desenvolvimento comecar.",
         cards: [
           { value: `${profile.publicRepos}`, accent: "+", label: "repositorios publicos" },
-          { value: "set/25", accent: "", label: "ID Brasil Sistemas" },
         ],
       },
       services: {
@@ -689,26 +697,22 @@ export const PortfolioPage = ({
   }, [isEnglish, texts.projects.projects]);
 
   useEffect(() => {
-    if (featuredProjects.length === 0) return;
-
-    setActiveProjectIndex((current) => Math.min(current, featuredProjects.length - 1));
-  }, [featuredProjects.length]);
-
-  useEffect(() => {
     if (featuredProjects.length < 2) return;
 
     const interval = window.setInterval(() => {
-      setActiveProjectIndex((current) => (current + 1) % featuredProjects.length);
+      setProjectState((current) => ({
+        index: (current.index + 1) % featuredProjects.length,
+        direction: 1,
+      }));
     }, 5200);
 
     return () => window.clearInterval(interval);
   }, [featuredProjects.length, lastManualClick]);
 
-  useEffect(() => {
-    projectDirectionRef.current = activeProjectIndex >= prevProjectIndexRef.current ? 1 : -1;
-    prevProjectIndexRef.current = activeProjectIndex;
-  }, [activeProjectIndex]);
-
+  const activeProjectIndex = featuredProjects.length === 0
+    ? 0
+    : Math.min(projectState.index, featuredProjects.length - 1);
+  const projectDirection = projectState.direction;
   const activeProject = featuredProjects[activeProjectIndex] ?? null;
   const showcaseProjects = featuredProjects.map((project) => ({
     color: project.theme.accent,
@@ -747,6 +751,41 @@ export const PortfolioPage = ({
       icon: "GH",
     },
   ], []);
+
+  const languageOptions = useMemo(() => {
+    const ptHref = currentHash ? `/${currentHash}` : "/";
+    const enHref = currentHash ? `/en${currentHash}` : "/en";
+
+    return [
+      { code: "pt-br", label: "PT", href: ptHref },
+      { code: "en", label: "EN", href: enHref },
+    ];
+  }, [currentHash]);
+
+  const footerLinks = useMemo(() => [
+    { href: "#projects", label: copy.nav.projects },
+    { href: "#about", label: copy.nav.about },
+    { href: "#services", label: copy.nav.services },
+    { href: "#tech", label: copy.tech.title },
+    { href: "#contact", label: copy.nav.contact },
+  ], [copy.nav, copy.tech.title]);
+
+  const footerSocialLinks = useMemo(() => [
+    { href: links.whatsapp, label: "WhatsApp", external: true },
+    { href: links.linkedin, label: "LinkedIn", external: true },
+    { href: links.github, label: "GitHub", external: true },
+  ], []);
+
+  const footerDescription = isEnglish
+    ? "Websites, technical SEO and custom systems built with direct communication and clear delivery goals."
+    : "Sites, SEO tecnico e sistemas sob medida com contato direto e entregas pensadas para gerar clareza no negocio.";
+  const footerNavLabel = isEnglish ? "Navigate" : "Navegacao";
+  const footerConnectLabel = isEnglish ? "Connect" : "Conecte-se";
+  const languageLabel = isEnglish ? "Language" : "Idioma";
+  const shortRoleLabel = isEnglish ? "Full-Stack Freelancer" : "Freelancer Full-Stack";
+  const longRoleLabel = isEnglish
+    ? "Full-Stack freelancer based in Maringa, PR"
+    : "Freelancer Full-Stack em Maringa, PR";
 
   const handleHeroPointerMove = (event: ReactPointerEvent<HTMLElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -820,39 +859,64 @@ export const PortfolioPage = ({
           }`}
       >
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 md:px-10">
-          <Link href="#hero" className="flex flex-col gap-[1px] leading-none no-underline">
-            <span className="font-display block text-[7.5px] font-light uppercase tracking-[0.48em] text-[#607a93]">
-              Raul
-            </span>
-            <span className="font-display relative inline-block text-[16px] font-extrabold tracking-[-0.035em] text-[#dce7f2] after:absolute after:bottom-[-1px] after:right-0 after:h-[1.5px] after:w-[18%] after:rounded-[1px] after:bg-[#00cfea] after:content-['']">
-              SIGOLI
-            </span>
+          <Link href="#hero" className="flex items-center no-underline">
+            <Image
+              src="/logo/svg-transparente/sigoli-v2-dark-sem-tagline.svg"
+              alt="Logo Raul Sigoli"
+              width={900}
+              height={320}
+              priority
+              className="h-auto w-[108px] md:w-[120px]"
+            />
           </Link>
 
-          <ul className="hidden items-center gap-7 text-[13px] text-[#607a93] md:flex">
-            {navLinks.map((link) => (
-              <li key={link.href} className="list-none">
-                <Link
-                  href={link.href}
-                  className="transition-colors duration-200 hover:text-[#dce7f2] will-change-transform"
-                  onPointerMove={handleMagnetMove}
-                  onPointerLeave={handleMagnetLeave}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-            <li className="list-none">
-              <Link
-                href="#contact"
-                className="rounded-lg bg-[#00cfea] px-5 py-2 font-medium text-[#05080e] transition-transform duration-200 hover:brightness-110 will-change-transform"
-                onPointerMove={handleMagnetMove}
-                onPointerLeave={handleMagnetLeave}
-              >
-                {copy.nav.contact}
-              </Link>
-            </li>
-          </ul>
+          <div className="hidden items-center gap-3 md:flex">
+            <ul className="flex items-center gap-7 text-[13px] text-[#607a93]">
+              {navLinks.map((link) => (
+                <li key={link.href} className="list-none">
+                  <Link
+                    href={link.href}
+                    className="transition-colors duration-200 hover:text-[#dce7f2] will-change-transform"
+                    onPointerMove={handleMagnetMove}
+                    onPointerLeave={handleMagnetLeave}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            <div className="flex items-center rounded-full border border-white/10 bg-[#0b1220]/80 p-1 font-mono-ui text-[11px] uppercase tracking-[0.14em]">
+              {languageOptions.map((option) => {
+                const active = option.code === language;
+
+                return (
+                  <Link
+                    key={option.code}
+                    href={option.href}
+                    aria-current={active ? "page" : undefined}
+                    className={`rounded-full px-3 py-2 transition-colors ${active
+                      ? "bg-[rgba(0,207,234,0.14)] text-[#00cfea]"
+                      : "text-[#607a93] hover:text-[#dce7f2]"
+                      }`}
+                    onPointerMove={handleMagnetMove}
+                    onPointerLeave={handleMagnetLeave}
+                  >
+                    {option.label}
+                  </Link>
+                );
+              })}
+            </div>
+
+            <Link
+              href="#contact"
+              className="rounded-lg bg-[#00cfea] px-5 py-2 font-medium text-[#05080e] transition-transform duration-200 hover:brightness-110 will-change-transform"
+              onPointerMove={handleMagnetMove}
+              onPointerLeave={handleMagnetLeave}
+            >
+              {copy.nav.contact}
+            </Link>
+          </div>
 
           <button
             type="button"
@@ -888,6 +952,31 @@ export const PortfolioPage = ({
                   {link.label}
                 </Link>
               ))}
+              <div>
+                <div className="mb-2 font-mono-ui text-[10px] uppercase tracking-[0.16em] text-[#243446]">
+                  {languageLabel}
+                </div>
+                <div className="inline-flex rounded-full border border-white/10 bg-[#0b1220] p-1 font-mono-ui text-[11px] uppercase tracking-[0.14em]">
+                  {languageOptions.map((option) => {
+                    const active = option.code === language;
+
+                    return (
+                      <Link
+                        key={option.code}
+                        href={option.href}
+                        aria-current={active ? "page" : undefined}
+                        className={`rounded-full px-3 py-2 transition-colors ${active
+                          ? "bg-[rgba(0,207,234,0.14)] text-[#00cfea]"
+                          : "text-[#607a93] hover:text-[#dce7f2]"
+                          }`}
+                        onClick={() => setMobileOpen(false)}
+                      >
+                        {option.label}
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
               <Link
                 href="#contact"
                 className="rounded-lg bg-[#00cfea] px-5 py-3 text-center font-medium text-[#05080e]"
@@ -967,13 +1056,17 @@ export const PortfolioPage = ({
               ref={wordmarkRef}
               className="inline-block transform-gpu transition-transform duration-150 ease-out [transform-style:preserve-3d]"
             >
-              {/* margin-right: -0.55em cancels the extra letter-spacing after the last char,
-                  keeping "Raul" visually centred below "SIGOLI" — mirrors .wm-r in the HTML */}
-              <span className="font-display -mr-[0.55em] block text-[13px] font-light uppercase tracking-[0.55em] text-[#607a93]">
-                {copy.hero.titleTop}
-              </span>
-              <h1 className="font-display relative inline-block text-[clamp(4.5rem,12vw,8.125rem)] font-extrabold leading-[0.95] tracking-[-0.045em] text-[#dce7f2] [text-shadow:0_2px_0_rgba(0,207,234,0.2),0_4px_0_rgba(0,207,234,0.1),0_6px_0_rgba(0,207,234,0.05),0_0_26px_rgba(0,207,234,0.12)] after:absolute after:bottom-1 after:right-0 after:h-1 after:w-[11%] after:rounded-[2px] after:bg-[#00cfea] after:shadow-[0_0_12px_rgba(0,207,234,0.5)] after:content-['']">
-                {copy.hero.titleBottom}
+              <h1 className="mx-auto w-[min(80vw,560px)] drop-shadow-[0_0_26px_rgba(0,207,234,0.12)] md:w-[min(72vw,620px)]">
+                <span className="sr-only">{`${copy.hero.titleTop} ${copy.hero.titleBottom}`}</span>
+                <Image
+                  src="/logo/svg-transparente/sigoli-v2-dark-sem-tagline.svg"
+                  alt=""
+                  width={900}
+                  height={320}
+                  priority
+                  aria-hidden="true"
+                  className="h-auto w-full"
+                />
               </h1>
               <span className="font-mono-ui mt-[18px] block text-[11px] uppercase tracking-[0.2em] text-[#243446]">
                 {copy.hero.kicker}
@@ -1100,17 +1193,17 @@ export const PortfolioPage = ({
                       width={96}
                       height={96}
                       className="h-full w-full object-cover"
-                      priority
                     />
                   </div>
-                  <div className="font-display mb-1 text-[9px] font-light uppercase tracking-[0.4em] text-[#607a93]">
-                    Raul
-                  </div>
-                  <div className="font-display relative inline-block text-[42px] font-extrabold tracking-[-0.04em] text-[#dce7f2] after:absolute after:bottom-0 after:right-0 after:h-[3px] after:w-[18%] after:rounded-full after:bg-[#00cfea] after:content-['']">
-                    SIGOLI
-                  </div>
+                  <Image
+                    src="/logo/svg-transparente/sigoli-v2-dark-sem-tagline.svg"
+                    alt="Logo Raul Sigoli"
+                    width={900}
+                    height={320}
+                    className="mx-auto h-auto w-[158px]"
+                  />
                   <div className="font-mono-ui mt-4 text-[10px] uppercase tracking-[0.18em] text-[#243446]">
-                    Full-Stack · ID Brasil + SIGOLI
+                    Full-Stack . SIGOLI
                   </div>
                   <div className="mt-5 flex flex-wrap justify-center gap-2">
                     {["Next.js", "Supabase", "Prisma"].map((item) => (
@@ -1299,7 +1392,13 @@ export const PortfolioPage = ({
                     <button
                       key={project.url}
                       type="button"
-                      onClick={() => { setActiveProjectIndex(index); setLastManualClick(Date.now()); }}
+                      onClick={() => {
+                        setProjectState(() => ({
+                          index,
+                          direction: index >= activeProjectIndex ? 1 : -1,
+                        }));
+                        setLastManualClick(Date.now());
+                      }}
                       className={`flex h-10 w-10 items-center justify-center rounded-full border font-mono-ui text-[10px] transition-all ${activeProjectIndex === index
                         ? "border-[rgba(0,207,234,0.3)] bg-[rgba(0,207,234,0.12)] text-[#00cfea] shadow-[0_0_22px_rgba(0,207,234,0.18)]"
                         : "border-white/10 bg-[#0b1220] text-[#607a93] hover:border-[rgba(0,207,234,0.22)]"
@@ -1312,10 +1411,10 @@ export const PortfolioPage = ({
               </motion.div>
 
               {/* Lado direito — AnimatePresence para exit antes de enter */}
-              <AnimatePresence mode="wait" custom={projectDirectionRef.current}>
+              <AnimatePresence mode="wait" custom={projectDirection}>
                 <motion.div
                   key={activeProject.url}
-                  custom={projectDirectionRef.current}
+                  custom={projectDirection}
                   variants={{
                     enter: (dir: number) => ({
                       opacity: 0,
@@ -1733,48 +1832,111 @@ export const PortfolioPage = ({
                   </h3>
                   <p className="mt-2 text-sm leading-7 text-[#607a93]">{copy.contact.formIntro}</p>
                 </div>
-                <ContactForm texts={texts.contact} />
+                <ContactForm texts={texts.contact} language={language} />
               </div>
             </Tilt3DCard>
           </div>
         </SectionReveal>
       </section>
 
-      <footer className="px-6 py-12 md:px-10">
-        <div className="mx-auto flex max-w-6xl flex-col gap-6 md:flex-row md:items-center md:justify-between">
-          <div>
-            <div className="font-display text-[7px] font-light uppercase tracking-[0.45em] text-[#243446]">
-              Raul
-            </div>
-            <div className="font-display relative inline-block text-[20px] font-extrabold tracking-[-0.04em] text-[#dce7f2] after:absolute after:bottom-[-1px] after:right-0 after:h-[1.5px] after:w-[18%] after:rounded-[1px] after:bg-[#00cfea] after:content-['']">
-              SIGOLI
-            </div>
-          </div>
-
-          <div className="flex flex-wrap gap-5 text-[13px] text-[#607a93]">
-            {[
-              { href: "#projects", label: copy.nav.projects },
-              { href: "#tech", label: copy.tech.title },
-              { href: links.linkedin, label: "LinkedIn", external: true },
-              { href: links.github, label: "GitHub", external: true },
-              { href: links.cv, label: "CV", external: true },
-            ].map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                target={item.external ? "_blank" : undefined}
-                rel={item.external ? "noreferrer" : undefined}
-                className="transition-colors duration-200 hover:text-[#00cfea] will-change-transform"
-                onPointerMove={handleMagnetMove}
-                onPointerLeave={handleMagnetLeave}
-              >
-                {item.label}
+      <footer className="px-6 pb-28 pt-12 md:px-10 md:pb-24">
+        <div className="mx-auto max-w-6xl rounded-[32px] border border-white/5 bg-[#0b1220] p-8 shadow-[0_24px_80px_rgba(0,0,0,0.22)] md:p-10">
+          <div className="grid gap-10 lg:grid-cols-[1.3fr_0.8fr_0.9fr]">
+            <div>
+              <Link href="#hero" className="inline-flex items-center no-underline">
+                <Image
+                  src="/logo/svg-transparente/sigoli-v2-dark-sem-tagline.svg"
+                  alt="Logo Raul Sigoli"
+                  width={900}
+                  height={320}
+                  className="h-auto w-[132px]"
+                />
               </Link>
-            ))}
+
+              <p className="mt-5 max-w-[360px] text-sm leading-7 text-[#607a93]">
+                {footerDescription}
+              </p>
+
+              <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-[rgba(0,207,234,0.18)] bg-[rgba(0,207,234,0.08)] px-4 py-2 font-mono-ui text-[11px] uppercase tracking-[0.14em] text-[#00cfea]">
+                <span className="h-2 w-2 rounded-full bg-[#0aeeb5] animate-live-pulse" />
+                {copy.contact.availability}
+              </div>
+            </div>
+
+            <div>
+              <div className="font-mono-ui text-[10px] uppercase tracking-[0.16em] text-[#243446]">
+                {footerNavLabel}
+              </div>
+              <div className="mt-4 flex flex-col gap-3 text-sm text-[#607a93]">
+                {footerLinks.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="transition-colors duration-200 hover:text-[#00cfea] will-change-transform"
+                    onPointerMove={handleMagnetMove}
+                    onPointerLeave={handleMagnetLeave}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <div className="font-mono-ui text-[10px] uppercase tracking-[0.16em] text-[#243446]">
+                {footerConnectLabel}
+              </div>
+              <div className="mt-4 flex flex-col gap-3 text-sm text-[#607a93]">
+                {footerSocialLinks.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    target={item.external ? "_blank" : undefined}
+                    rel={item.external ? "noreferrer" : undefined}
+                    className="transition-colors duration-200 hover:text-[#00cfea] will-change-transform"
+                    onPointerMove={handleMagnetMove}
+                    onPointerLeave={handleMagnetLeave}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+
+              <div className="mt-6">
+                <div className="mb-2 font-mono-ui text-[10px] uppercase tracking-[0.16em] text-[#243446]">
+                  {languageLabel}
+                </div>
+                <div className="inline-flex rounded-full border border-white/10 bg-[#05080e] p-1 font-mono-ui text-[11px] uppercase tracking-[0.14em]">
+                  {languageOptions.map((option) => {
+                    const active = option.code === language;
+
+                    return (
+                      <Link
+                        key={option.code}
+                        href={option.href}
+                        aria-current={active ? "page" : undefined}
+                        className={`rounded-full px-3 py-2 transition-colors ${active
+                          ? "bg-[rgba(0,207,234,0.14)] text-[#00cfea]"
+                          : "text-[#607a93] hover:text-[#dce7f2]"
+                          }`}
+                      >
+                        {option.label}
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className="font-mono-ui text-[10px] uppercase tracking-[0.12em] text-[#243446]">
-            (c) 2026 Raul Sigoli · Maringa, PR
+          <div className="mt-8 flex flex-col gap-4 border-t border-white/5 pt-6 md:flex-row md:items-center md:justify-between">
+            <div className="text-sm text-[#607a93]">
+              <span className="font-semibold text-[#dce7f2]">Raul Sigoli</span>
+              {` · ${longRoleLabel}`}
+            </div>
+            <div className="font-mono-ui text-[10px] uppercase tracking-[0.12em] text-[#243446]">
+              (c) 2026 Raul Sigoli · Maringa, PR
+            </div>
           </div>
         </div>
       </footer>
@@ -1788,9 +1950,15 @@ export const PortfolioPage = ({
             <span className="h-2 w-2 rounded-full bg-[#0aeeb5] animate-live-pulse" />
             {copy.contact.availability}
           </div>
-          <div className="text-sm text-[#607a93] md:flex-1 md:px-6">
-            <strong className="text-[#dce7f2]">Raul Sigoli</strong>
-            {" · Freelancer Full-Stack"}
+          <div className="flex items-center gap-3 text-sm text-[#607a93] md:flex-1 md:px-6">
+            <Image
+              src="/logo/svg-transparente/sigoli-v2-dark-sem-tagline.svg"
+              alt="Logo Raul Sigoli"
+              width={900}
+              height={320}
+              className="h-auto w-[92px] shrink-0"
+            />
+            <span>{shortRoleLabel}</span>
           </div>
           <Link
             href="#contact"

@@ -2,7 +2,7 @@
 
 import { Canvas, type CanvasProps } from "@react-three/fiber";
 import { useInView } from "framer-motion";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useRef, type ReactNode } from "react";
 
 interface SceneCanvasProps extends Omit<CanvasProps, "children" | "gl"> {
   children: ReactNode;
@@ -18,17 +18,18 @@ const SceneCanvas = ({
   ...props
 }: SceneCanvasProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef, {
+  const inViewOptions = {
     margin: "220px 0px",
     amount: 0.05,
+  } as const;
+  const isInView = useInView(containerRef, {
+    ...inViewOptions,
   });
-  const [hasRendered, setHasRendered] = useState(eager);
-
-  useEffect(() => {
-    if (isInView) {
-      setHasRendered(true);
-    }
-  }, [isInView]);
+  const hasEnteredView = useInView(containerRef, {
+    ...inViewOptions,
+    once: true,
+  });
+  const hasRendered = eager || hasEnteredView;
 
   return (
     <div ref={containerRef} className={className}>

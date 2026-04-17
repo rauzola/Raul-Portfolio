@@ -3,6 +3,7 @@
 import { Float } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { Suspense, useMemo, useRef } from "react";
+import { deterministicRange } from "@/lib/deterministic-random";
 import * as THREE from "three";
 import SceneCanvas from "./scene-canvas";
 
@@ -103,9 +104,11 @@ function ProcessParticles() {
     const values = new Float32Array(22 * 3);
 
     for (let index = 0; index < 22; index += 1) {
-      values[index * 3] = (Math.random() - 0.5) * 10;
-      values[index * 3 + 1] = (Math.random() - 0.5) * 4;
-      values[index * 3 + 2] = (Math.random() - 0.5) * 4;
+      const seed = index * 3;
+
+      values[index * 3] = deterministicRange(seed + 1, -5, 5);
+      values[index * 3 + 1] = deterministicRange(seed + 2, -2, 2);
+      values[index * 3 + 2] = deterministicRange(seed + 3, -2, 2);
     }
 
     return values;

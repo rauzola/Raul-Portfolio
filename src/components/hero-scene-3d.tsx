@@ -3,6 +3,7 @@
 import { useFrame } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import type { MutableRefObject } from "react";
+import { deterministicRange } from "@/lib/deterministic-random";
 import * as THREE from "three";
 import SceneCanvas from "./scene-canvas";
 
@@ -24,9 +25,11 @@ function Particles({ count = 130 }: { count?: number }) {
   const positions = useMemo(() => {
     const values = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
-      values[i * 3]     = (Math.random() - 0.5) * 22;
-      values[i * 3 + 1] = (Math.random() - 0.5) * 15;
-      values[i * 3 + 2] = (Math.random() - 0.5) * 11;
+      const seed = i * 3;
+
+      values[i * 3] = deterministicRange(seed + 1, -11, 11);
+      values[i * 3 + 1] = deterministicRange(seed + 2, -7.5, 7.5);
+      values[i * 3 + 2] = deterministicRange(seed + 3, -5.5, 5.5);
     }
     return values;
   }, [count]);
@@ -183,16 +186,17 @@ function ConnectionLines() {
   const ref = useRef<THREE.Group>(null);
 
   const lineObjects = useMemo(() => {
-    return Array.from({ length: 14 }).map(() => {
+    return Array.from({ length: 14 }, (_, index) => {
+      const seed = index * 10;
       const start = new THREE.Vector3(
-        (Math.random() - 0.5) * 18,
-        (Math.random() - 0.5) * 12,
-        (Math.random() - 0.5) * 9,
+        deterministicRange(seed + 1, -9, 9),
+        deterministicRange(seed + 2, -6, 6),
+        deterministicRange(seed + 3, -4.5, 4.5),
       );
       const end = new THREE.Vector3(
-        start.x + (Math.random() - 0.5) * 7,
-        start.y + (Math.random() - 0.5) * 5,
-        start.z + (Math.random() - 0.5) * 4,
+        start.x + deterministicRange(seed + 4, -3.5, 3.5),
+        start.y + deterministicRange(seed + 5, -2.5, 2.5),
+        start.z + deterministicRange(seed + 6, -2, 2),
       );
       const geo = new THREE.BufferGeometry().setFromPoints([start, end]);
       const mat = new THREE.LineBasicMaterial({ color: "#00CFEA", transparent: true, opacity: 0.07 });

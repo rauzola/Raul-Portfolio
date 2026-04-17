@@ -10,9 +10,10 @@ import { ButtonForm } from "./button-form";
 
 interface Props {
   texts: ContactTexts;
+  language?: string;
 }
 
-export const ContactForm = ({ texts }: Props) => {
+export const ContactForm = ({ texts, language = "pt-br" }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<{
     isSuccess: boolean;
@@ -26,26 +27,61 @@ export const ContactForm = ({ texts }: Props) => {
     const formData = new FormData(form);
 
     const data = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      message: formData.get("message"),
+      name: String(formData.get("name") ?? "").trim(),
+      email: String(formData.get("email") ?? "").trim(),
+      message: String(formData.get("message") ?? "").trim(),
     };
 
+    const errors: Record<string, string[]> = {};
+
+    if (!data.name) {
+      errors.name = [texts.requiredFieldError];
+    }
+
+    if (!data.email) {
+      errors.email = [texts.requiredFieldError];
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+      errors.email = [texts.invalidEmailError];
+    }
+
+    if (!data.message) {
+      errors.message = [texts.requiredFieldError];
+    }
+
+    setResult(null);
+
+    if (Object.keys(errors).length > 0) {
+      setResult({ isSuccess: false, errors });
+      return;
+    }
+
     setIsLoading(true);
+
     try {
       const res = await fetch("/api/contato", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, language }),
       });
 
       if (res.ok) {
         setResult({ isSuccess: true });
         form.reset();
       } else {
-        const errorData = await res.json();
-        setResult({ isSuccess: false, errors: errorData?.errors || {} });
+        const errorData = await res.json().catch(() => null);
+        const fieldErrors = errorData?.errors && typeof errorData.errors === "object"
+          ? errorData.errors
+          : null;
+
+        setResult({
+          isSuccess: false,
+          errors: fieldErrors && Object.keys(fieldErrors).length > 0
+            ? fieldErrors
+            : { form: [texts.submitError] },
+        });
       }
+    } catch {
+      setResult({ isSuccess: false, errors: { form: [texts.submitError] } });
     } finally {
       setIsLoading(false);
     }
@@ -104,8 +140,9 @@ export const ContactForm = ({ texts }: Props) => {
         <ErrorMessage>{result?.errors?.message?.[0]}</ErrorMessage>
       </div>
       <ButtonForm disabled={isLoading}>
-        {isLoading ? "Enviando..." : texts.sendButton}
+        {isLoading ? texts.sendingButton : texts.sendButton}
       </ButtonForm>
+      <ErrorMessage>{result?.errors?.form?.[0]}</ErrorMessage>
     </form>
   );
 };

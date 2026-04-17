@@ -1,6 +1,7 @@
 // app/api/contato/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import { z } from "zod";
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -9,6 +10,19 @@ const transporter = nodemailer.createTransport({
     pass: process.env.GMAIL_PASS,
   },
 });
+
+function getContactSchema(language: "pt-br" | "en") {
+  const isEnglish = language === "en";
+
+  return z.object({
+    name: z.string().trim().min(1, isEnglish ? "Please enter your name." : "Preencha seu nome."),
+    email: z.string()
+      .trim()
+      .min(1, isEnglish ? "Please enter your email." : "Preencha seu e-mail.")
+      .email(isEnglish ? "Please enter a valid email." : "Digite um e-mail valido."),
+    message: z.string().trim().min(1, isEnglish ? "Please enter your message." : "Digite sua mensagem."),
+  });
+}
 
 function escapeHtml(value: unknown): string {
   return String(value)
@@ -22,15 +36,24 @@ function escapeHtml(value: unknown): string {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, email, message } = body;
+    const language = body?.language === "en" ? "en" : "pt-br";
+    const result = getContactSchema(language).safeParse(body);
 
-    // Validação básica
-    if (!name || !email || !message) {
+    if (!result.success) {
       return NextResponse.json(
-        { error: "Todos os campos obrigatórios devem ser preenchidos." },
+        { errors: result.error.flatten().fieldErrors },
         { status: 400 }
       );
     }
+
+    if (!process.env.GMAIL_USER || !process.env.GMAIL_PASS) {
+      return NextResponse.json(
+        { message: "Servico de contato indisponivel no momento." },
+        { status: 500 }
+      );
+    }
+
+    const { name, email, message } = result.data;
 
     const dataHora = new Date().toLocaleString("pt-BR", {
       timeZone: "America/Sao_Paulo",
