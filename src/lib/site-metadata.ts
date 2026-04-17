@@ -102,7 +102,8 @@ export function getSiteMetadata(language: SiteLanguage): Metadata {
       canonical: localeUrl,
       languages: {
         "pt-BR": siteUrl,
-        "en-US": `${siteUrl}/en`,
+        en: `${siteUrl}/en`,
+        "x-default": siteUrl,
       },
     },
     icons: {
@@ -154,6 +155,20 @@ export function getSiteJsonLd(language: SiteLanguage) {
           ? "Portfolio and Full-Stack development services"
           : "Portfolio e serviços de desenvolvimento Full-Stack",
         publisher: { "@id": `${siteUrl}/#person` },
+      },
+      {
+        "@type": "WebPage",
+        "@id": `${localeUrl}/#webpage`,
+        url: localeUrl,
+        name: isEnglish
+          ? "Raul Sigoli | Full-Stack Developer"
+          : "Raul Sigoli | Desenvolvedor Full-Stack",
+        inLanguage: getHtmlLang(language),
+        isPartOf: { "@id": `${localeUrl}/#website` },
+        about: { "@id": `${siteUrl}/#person` },
+        description: isEnglish
+          ? "Homepage for Raul Sigoli's portfolio and development services."
+          : "Pagina inicial do portfolio e servicos de desenvolvimento de Raul Sigoli.",
       },
       {
         "@type": "Service",

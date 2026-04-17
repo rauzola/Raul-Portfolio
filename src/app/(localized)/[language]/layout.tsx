@@ -1,8 +1,13 @@
+import type { Metadata } from "next";
 import "../../globals.css";
 import { notFound } from "next/navigation";
 import { CustomCursor } from "@/components/custom-cursor";
 import { dmSans, jetBrainsMono, syne } from "@/app/fonts";
-import { getHtmlLang, getSiteJsonLd, isLocalizedLanguage } from "@/lib/site-metadata";
+import { getHtmlLang, getSiteJsonLd, isLocalizedLanguage, siteUrl } from "@/lib/site-metadata";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+};
 
 export default async function LocalizedLayout({
   children,

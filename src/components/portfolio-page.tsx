@@ -59,12 +59,15 @@ interface FeaturedProject extends Project {
 }
 
 const links = {
-  whatsapp:
-    "https://wa.me/5544991658351?text=Ola%20Raul,%20vim%20pelo%20seu%20site%20e%20quero%20entender%20a%20melhor%20solucao%20para%20o%20meu%20negocio.",
   email: "mailto:raulsigoli2000@gmail.com",
   linkedin: "https://www.linkedin.com/in/raul-sigoli-137bb4173/",
   github: "https://github.com/rauzola",
 };
+
+const whatsappMessages = {
+  "pt-br": "Ola Raul, vim pelo seu site e quero entender a melhor solucao para o meu negocio.",
+  en: "Hi Raul, I found your website and would like to understand the best solution for my business.",
+} as const;
 
 const profile = {
   publicRepos: 92,
@@ -145,6 +148,11 @@ export const PortfolioPage = ({
   language = "pt-br",
 }: Props) => {
   const isEnglish = language === "en";
+  const whatsappLink = useMemo(() => {
+    const message = whatsappMessages[isEnglish ? "en" : "pt-br"];
+
+    return `https://wa.me/5544991658351?text=${encodeURIComponent(message)}`;
+  }, [isEnglish]);
   const heroPointerRef = useRef<PointerState>({ x: 0, y: 0 });
   const heroPointerX = useMotionValue(0);
   const heroPointerY = useMotionValue(0);
@@ -231,6 +239,7 @@ export const PortfolioPage = ({
       kicker: "Full-Stack Developer · Maringa, PR · ID Brasil + SIGOLI",
       titleTop: "Raul",
       titleBottom: "SIGOLI",
+      visibleHeading: "Full-Stack Developer for websites, SEO and custom systems",
       description:
         "I build websites, technical SEO structures and custom systems for small businesses and professionals that need to show up better online and operate with more clarity.",
       primaryCta: "Request Free Quote",
@@ -426,6 +435,7 @@ export const PortfolioPage = ({
         kicker: "Full-Stack Developer · Maringa, PR · SIGOLI",
         titleTop: "Raul",
         titleBottom: "SIGOLI",
+        visibleHeading: "Desenvolvedor Full-Stack para sites, SEO e sistemas sob medida",
         description:
           "Crio sites, SEO tecnico e sistemas sob medida para pequenas empresas e profissionais que precisam aparecer melhor no Google e operar com mais clareza.",
         primaryCta: "Solicitar Orcamento Gratis",
@@ -729,7 +739,7 @@ export const PortfolioPage = ({
     {
       label: "WhatsApp",
       value: "+55 44 99165-8351",
-      href: links.whatsapp,
+      href: whatsappLink,
       icon: "WA",
     },
     {
@@ -750,7 +760,7 @@ export const PortfolioPage = ({
       href: links.github,
       icon: "GH",
     },
-  ], []);
+  ], [whatsappLink]);
 
   const languageOptions = useMemo(() => {
     const ptHref = currentHash ? `/${currentHash}` : "/";
@@ -771,10 +781,10 @@ export const PortfolioPage = ({
   ], [copy.nav, copy.tech.title]);
 
   const footerSocialLinks = useMemo(() => [
-    { href: links.whatsapp, label: "WhatsApp", external: true },
+    { href: whatsappLink, label: "WhatsApp", external: true },
     { href: links.linkedin, label: "LinkedIn", external: true },
     { href: links.github, label: "GitHub", external: true },
-  ], []);
+  ], [whatsappLink]);
 
   const footerDescription = isEnglish
     ? "Websites, technical SEO and custom systems built with direct communication and clear delivery goals."
@@ -1067,6 +1077,9 @@ export const PortfolioPage = ({
                   aria-hidden="true"
                   className="h-auto w-full"
                 />
+                <span className="mt-6 block max-w-[18ch] text-balance text-center font-display text-[clamp(1.45rem,3vw,2.35rem)] font-bold leading-[1.02] tracking-[-0.035em] text-[#dce7f2] md:max-w-[20ch]">
+                  {copy.hero.visibleHeading}
+                </span>
               </h1>
               <span className="font-mono-ui mt-[18px] block text-[11px] uppercase tracking-[0.2em] text-[#243446]">
                 {copy.hero.kicker}
@@ -1124,7 +1137,7 @@ export const PortfolioPage = ({
               {copy.hero.secondaryCta}
             </Link>
             <Link
-              href={links.whatsapp}
+              href={whatsappLink}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center justify-center rounded-[10px] border border-[rgba(0,207,234,0.2)] bg-[rgba(0,207,234,0.08)] px-7 py-3.5 text-[15px] text-[#dce7f2] transition-transform duration-200 hover:border-[rgba(0,207,234,0.35)] hover:text-[#00cfea] will-change-transform"
@@ -1800,7 +1813,7 @@ export const PortfolioPage = ({
                   <p className="mb-5 text-sm leading-7 text-[#607a93]">{copy.contact.cardBody}</p>
                   <div className="flex flex-wrap gap-3">
                     <Link
-                      href={links.whatsapp}
+                      href={whatsappLink}
                       target="_blank"
                       rel="noreferrer"
                       className="rounded-lg bg-[#00cfea] px-5 py-3 text-sm font-medium text-[#05080e] transition-transform duration-200 hover:brightness-110 will-change-transform"

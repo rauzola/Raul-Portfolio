@@ -1,9 +1,14 @@
+import type { Metadata } from "next";
 import "../globals.css";
 import { CustomCursor } from "@/components/custom-cursor";
 import { dmSans, jetBrainsMono, syne } from "@/app/fonts";
-import { getSiteJsonLd } from "@/lib/site-metadata";
+import { getSiteJsonLd, siteUrl } from "@/lib/site-metadata";
 
 const jsonLd = getSiteJsonLd("pt-br");
+
+export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+};
 
 export default function DefaultLayout({
   children,
