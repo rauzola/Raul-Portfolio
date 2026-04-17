@@ -4,13 +4,10 @@ import { useFrame } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import type { MutableRefObject } from "react";
 import { deterministicRange } from "@/lib/deterministic-random";
+import { calcDist } from "@/lib/physics";
+import type { PointerState } from "@/types/pointer";
 import * as THREE from "three";
 import SceneCanvas from "./scene-canvas";
-
-interface PointerState {
-  x: number;
-  y: number;
-}
 
 // ── Physics constants (world units) ───────────────────────────────────────────
 const REPEL_DIST     = 3.2;   // world-unit radius where shapes start fleeing
@@ -84,7 +81,7 @@ function FloatingShape({
 
     const dx   = pxRef.current - cursorX;
     const dy   = pyRef.current - cursorY;
-    const dist = Math.sqrt(dx * dx + dy * dy);
+    const dist = calcDist(dx, dy);
 
     // Repulsion when cursor is close
     if (dist < REPEL_DIST && dist > 0.001) {

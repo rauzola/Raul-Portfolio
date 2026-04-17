@@ -15,3 +15,20 @@ export interface Project {
   height?: number;
   width?: number;
 }
+
+export interface FeaturedProject extends Project {
+  index: string;
+  hostname: string;
+  badge: string;
+  domain: string;
+  results: {
+    value: string;
+    accent: string;
+    label: string;
+  }[];
+  theme: {
+    primary: string;
+    secondary: string;
+    accent: string;
+  };
+}

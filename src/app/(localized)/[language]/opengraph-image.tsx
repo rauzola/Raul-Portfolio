@@ -62,7 +62,7 @@ export default function OpenGraphImage() {
                 fontWeight: 800,
               }}
             >
-              Sites, SEO técnico e sistemas sob medida com comunicação direta.
+              Websites, technical SEO and custom systems with direct communication.
             </div>
 
             <div
@@ -74,7 +74,7 @@ export default function OpenGraphImage() {
                 color: "#9cb2c7",
               }}
             >
-              Desenvolvedor Full-Stack em Maringá, PR. Sites focados em conversão e produtos digitais sob medida.
+              Full-Stack Developer based in Maringa, PR building conversion-focused sites and tailored digital products.
             </div>
           </div>
 
@@ -102,7 +102,7 @@ export default function OpenGraphImage() {
                   background: "#0aeeb5",
                 }}
               />
-              Disponível para novos projetos
+              Available for new projects
             </div>
 
             <div style={{ display: "flex", fontSize: 24, color: "#607a93" }}>raulsigoli.com.br</div>

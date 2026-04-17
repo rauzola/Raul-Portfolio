@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://raulsigolidev.com";
+export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://raulsigoli.com.br";
 
 export type SiteLanguage = "pt-br" | "en";
 export type LocalizedLanguage = "en";

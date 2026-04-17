@@ -2,6 +2,8 @@
 
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
+import { calcDist } from "@/lib/physics";
+import { SPRING_FLEE } from "@/lib/spring-configs";
 
 interface FleeElementProps {
   children: ReactNode;
@@ -23,8 +25,8 @@ export const FleeElement = ({
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const springX = useSpring(x, { stiffness: 240, damping: 18, mass: 0.45 });
-  const springY = useSpring(y, { stiffness: 240, damping: 18, mass: 0.45 });
+  const springX = useSpring(x, SPRING_FLEE);
+  const springY = useSpring(y, SPRING_FLEE);
 
   useEffect(() => {
     const el = ref.current;
@@ -36,7 +38,7 @@ export const FleeElement = ({
       const cy = rect.top + rect.height / 2;
       const dx = e.clientX - cx;
       const dy = e.clientY - cy;
-      const dist = Math.sqrt(dx * dx + dy * dy);
+      const dist = calcDist(dx, dy);
 
       if (dist < radius && dist > 0.5) {
         const t = (radius - dist) / radius;

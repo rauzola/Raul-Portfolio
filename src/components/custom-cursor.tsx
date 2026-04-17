@@ -2,6 +2,7 @@
 
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { SPRING_CURSOR_FAST, SPRING_CURSOR_SLOW } from "@/lib/spring-configs";
 
 const DOT = 5;
 const RING = 28;
@@ -13,12 +14,12 @@ export function CustomCursor() {
   const rawY = useMotionValue(-400);
 
   // Dot: very snappy
-  const fastX = useSpring(rawX, { stiffness: 900, damping: 38, mass: 0.2 });
-  const fastY = useSpring(rawY, { stiffness: 900, damping: 38, mass: 0.2 });
+  const fastX = useSpring(rawX, SPRING_CURSOR_FAST);
+  const fastY = useSpring(rawY, SPRING_CURSOR_FAST);
 
   // Ring: lags behind
-  const slowX = useSpring(rawX, { stiffness: 160, damping: 22, mass: 0.5 });
-  const slowY = useSpring(rawY, { stiffness: 160, damping: 22, mass: 0.5 });
+  const slowX = useSpring(rawX, SPRING_CURSOR_SLOW);
+  const slowY = useSpring(rawY, SPRING_CURSOR_SLOW);
 
   // Pre-center each element
   const dotX = useTransform(fastX, (v) => v - DOT / 2);
@@ -34,6 +35,8 @@ export function CustomCursor() {
   const isVisibleRef = useRef(false);
 
   useEffect(() => {
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+
     const onMove = (e: MouseEvent) => {
       rawX.set(e.clientX);
       rawY.set(e.clientY);

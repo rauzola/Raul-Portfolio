@@ -4,13 +4,10 @@ import { Float } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { Suspense, useMemo, useRef } from "react";
 import type { MutableRefObject, PointerEvent as ReactPointerEvent } from "react";
+import { normalizePointer } from "@/lib/physics";
+import type { PointerState } from "@/types/pointer";
 import * as THREE from "three";
 import SceneCanvas from "./scene-canvas";
-
-interface PointerState {
-  x: number;
-  y: number;
-}
 
 const techNodes = [
   { color: "#61DAFB", pos: [2.5, 0.8, 0] as [number, number, number] },
@@ -197,10 +194,7 @@ const TechOrbit3D = () => {
   const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
 
-    pointerRef.current = {
-      x: (event.clientX - rect.left) / rect.width - 0.5,
-      y: 0.5 - (event.clientY - rect.top) / rect.height,
-    };
+    pointerRef.current = normalizePointer(event, rect);
   };
 
   const handlePointerLeave = () => {
